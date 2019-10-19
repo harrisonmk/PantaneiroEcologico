@@ -7,3 +7,12 @@ abrir outra janela do cmd
 ativar o servidor do projeto com o nodemon com o comando "nodemon app.js" sem as aspas
 
 entrar no sistema com o link "http://localhost:8089"
+
+* comandos
+
+http://localhost:8089/admin/categorias/add -> adiciona categorias de noticias
+
+http://localhost:8089/admin/postagens/add -> adiciona uma postagem/noticia
+
+
+
