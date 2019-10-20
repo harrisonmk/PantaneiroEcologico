@@ -4,6 +4,8 @@ ativar o servidor do mongo com o comando  "mongod" sem aspas e deixar aberto a t
 
 abrir outra janela do cmd
 
+ter instalado o nodemon antes globalmente com o comando "npm install -g nodemon"  sem as aspas
+
 ativar o servidor do projeto com o nodemon com o comando "nodemon app.js" sem as aspas
 
 entrar no sistema com o link "http://localhost:8089"
