@@ -13,6 +13,8 @@ require("./modelo/Postagem");
 const Postagem = mongoose.model("postagens");
 require("./modelo/Categoria");
 const Categoria = mongoose.model("categorias");
+require("./modelo/PontoColeta");
+const PontoColeta = mongoose.model("pontocoleta");
 
 
 //configuracoes
@@ -46,7 +48,8 @@ app.engine('handlebars', handlebars({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 //mongoose
-
+//'mongodb+srv://Javeiro:Javeiro1996@cluster0-gdgsj.mongodb.net/pantaneiroecologico?retryWrites=true&w=majority',{useNewUrlParser:true}
+//"mongodb://localhost/pantaneiroecologico"
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/pantaneiroecologico").then(() => {
 
@@ -62,6 +65,7 @@ mongoose.connect("mongodb://localhost/pantaneiroecologico").then(() => {
 //public
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(express.static(__dirname + '/public'));
 
 
 //rotas
@@ -156,6 +160,23 @@ app.get("/categorias/:slug", (req, res) => {
       res.redirect("/");
 
    });
+
+
+});
+
+
+app.get("/pontocoletas",(req,res)=>{
+
+   //lista as categorias
+  PontoColeta.find().sort({ date: 'desc' }).then((pontocoleta) => {
+   res.render("pontocoleta/index", { pontocoleta: pontocoleta });
+
+ }).catch((err) => {
+
+   req.flash("error_msg", "Houve um erro ao listar as categorias");
+   res.redirect("/");
+
+ });
 
 
 });

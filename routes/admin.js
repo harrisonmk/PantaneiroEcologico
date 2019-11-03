@@ -5,6 +5,8 @@ require("../modelo/Categoria");
 const Categoria = mongoose.model("categorias");
 require('../modelo/Postagem');
 const Postagem = mongoose.model("postagens");
+require("../modelo/PontoColeta");
+const PontoColeta = mongoose.model("pontocoleta");
 
 
 rota.get('/', (req, res) => {
@@ -337,6 +339,83 @@ rota.get("/postagens/deletar/:id", (req, res) => {
 
 
 });
+
+//ponto de coleta
+rota.get('/pontocoleta/add', (req, res) => {
+
+
+  res.render("admin/addpontocoleta");
+
+
+
+});
+
+
+rota.post("/pontocoleta/nova", (req, res) => {
+
+  var erros = []
+
+  if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
+    erros.push({ texto: "Nome Invalido" });
+  }
+
+  if (!req.body.endereco || typeof req.body.endereco == undefined || req.body.endereco == null) {
+
+    erros.push({ texto: "endereco Invalido" });
+  }
+
+  if (req.body.nome.length < 2) {
+    erros.push({ texto: "Nome e muito pequeno" });
+  }
+
+  if (erros.length > 0) {
+    res.render("admin/addpontocoleta", { erros: erros });
+
+  } else {
+
+    const novoPontoColeta = {
+
+      nome: req.body.nome,
+      endereco: req.body.endereco
+
+    }
+
+    new PontoColeta(novoPontoColeta).save().then(() => {
+
+      req.flash("success_msg", "Ponto de coleta Criada Com Sucesso");
+
+      //se o cadastro der certo vai ser redirecionado
+      res.redirect("/admin/pontocoleta");
+
+    }).catch((err) => {
+
+      req.flash("error_msg", "Houve um erro ao salvar o Ponto de coleta, tente novamente");
+      res.redirect("/admin");
+
+    });
+
+  }
+
+
+});
+
+rota.get("/pontocoleta", (req, res) => {
+
+
+  //lista as categorias
+  PontoColeta.find().sort({ date: 'desc' }).then((pontocoleta) => {
+    res.render("admin/pontocoleta", { pontocoleta: pontocoleta });
+
+  }).catch((err) => {
+
+    req.flash("error_msg", "Houve um erro ao listar as categorias");
+    res.redirect("/admin");
+
+  });
+
+
+});
+
 
 module.exports = rota;
 
