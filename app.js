@@ -16,6 +16,10 @@ const Categoria = mongoose.model("categorias");
 require("./modelo/PontoColeta");
 const PontoColeta = mongoose.model("pontocoleta");
 
+const fileUpload = require("express-fileupload");
+require("./modelo/Noticias");
+const Noticias = mongoose.model("noticias");
+
 
 //configuracoes
 
