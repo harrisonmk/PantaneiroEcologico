@@ -10,7 +10,10 @@ ter instalado o nodemon antes globalmente nao precisa ser dentro  da pasta com o
 
 ativar o servidor do projeto com o nodemon com o comando "nodemon app.js" sem as aspas
 
+
 entrar no sistema com o link "http://localhost:8089"
+
+instalar, bibilioteca para tratar imagem , comando : npm install --save express-fileupload
 
     comandos
 
