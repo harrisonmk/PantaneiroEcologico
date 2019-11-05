@@ -1,0 +1,31 @@
+
+
+<h2>Todas as  Noticias:</h2>
+
+
+
+{{#each noticias}}
+  <div class="card">
+      <div class="card-body">
+
+          <h3>Titulo:{{titulo}}</h3>
+          <h4>Descrição:</h3> {{descricao}}</p>
+          <p><h4>Conteúdo:</h3>{{conteudo}}</p>
+          <small>Data: {{data}}</small><br>
+            
+          <img src="../upload{{imagem}}">
+          
+      </div>
+
+
+  </div>
+{{else}}
+
+
+
+<p>Nenhuma noticia Registrada</p>
+{{/each}}
+
+<center>
+  <a href="/admin/noticias/add" <button class="btn btn-success">Nova Noticia</button> </a>
+</center>
