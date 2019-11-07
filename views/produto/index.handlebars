@@ -1,0 +1,25 @@
+<h2>Produtos:</h2>
+<hr>
+
+
+{{#each produto}}
+
+<div class="card">
+
+    <div class="card-body">
+
+        <h2>{{titulo}}</h2>
+		<h4>{{subtitulo}}</h4>
+		<hr>
+        <small>Data: {{data}}</small><br>
+		<hr>
+
+		<h6>{{texto}}</h6>
+        
+    </div>
+
+</div>
+
+{{else}}
+ <h4 class="mt-3"> Nenhum produto registrado</h4>
+{{/each}}
