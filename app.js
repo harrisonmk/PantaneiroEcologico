@@ -20,6 +20,8 @@ const fileUpload = require("express-fileupload");
 require("./modelo/Noticias");
 const Noticias = mongoose.model("noticias");
 
+require("./modelo/Produto");//produto
+const Produto = mongoose.model("produto");//produto
 
 //configuracoes
 
@@ -193,9 +195,27 @@ app.get("/404", (req, res) => {
 });
 
 
+//Produtos
+app.get("/produtos",(req,res)=>{
 
+  Produto.find().sort({ date: 'desc' }).then((produto) => {
+   res.render("produto/index", { produto: produto });
 
+ }).catch((err) => {
 
+   req.flash("error_msg", "Houve um erro ao listar os produtos");
+   res.redirect("/");
+ });
+
+});
+
+app.get("/404", (req, res) => {
+
+   res.send("erro 404!");
+
+});
+
+//
 
 
 app.use('/admin', admin);
