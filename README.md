@@ -1,6 +1,6 @@
 
 
-depois de baixar instale o express na pasta do projeto com o comando "npm install express --save" sem as aspas
+Depois de baixar instale o express na pasta do projeto com o comando "npm install express --save" sem as aspas
 
 ativar o servidor do mongo com o comando "mongod" sem aspas e deixar aberto a tela do cmd
 
@@ -22,3 +22,5 @@ http://localhost:8089/admin/categorias/add -> adiciona categorias de noticias
 http://localhost:8089/admin/postagens/add -> adiciona uma postagem/noticia
 
 http://localhost:8089/admin/pontocoleta/add -> adiciona um ponto de coleta
+
+http://localhost:8089/admin/produto/add -> adiciona um produto
