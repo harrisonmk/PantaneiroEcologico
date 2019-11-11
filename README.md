@@ -13,6 +13,10 @@
 
 - Instalar, biblioteca para tratar imagem , com o comando "npm install --save express-fileupload" sem as aspas.
 
+- Instalar pacotes adicionais para rodar a aplicação "npm audit fix"(Sem aspas no momento em que colar no terminal) .
+
+- Instalar pacotes adicionais para rodar a aplicação "npm audit"(Sem aspas no momento em que colar no terminal) .
+
     - Comandos
 
 http://localhost:8089/admin/categorias/add -> adiciona categorias de noticias
