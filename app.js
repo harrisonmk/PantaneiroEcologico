@@ -57,7 +57,7 @@ app.set('view engine', 'handlebars');
 //'mongodb+srv://Javeiro:Javeiro1996@cluster0-gdgsj.mongodb.net/pantaneiroecologico?retryWrites=true&w=majority',{useNewUrlParser:true}
 //"mongodb://localhost/pantaneiroecologico"
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/pantaneiroecologico").then(() => {
+mongoose.connect('mongodb+srv://Javeiro:Javeiro1996@cluster0-gdgsj.mongodb.net/pantaneiroecologico?retryWrites=true&w=majority', { useNewUrlParser: true }).then(() => {
 
    console.log("conectado ao mongo");
 
