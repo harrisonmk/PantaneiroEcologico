@@ -1,5 +1,5 @@
 
-- Depois de baixar instale:
+-Depois de baixar instale:
 
 - Instalar o express na pasta do projeto com o comando "npm install express --save" sem as aspas.
 
@@ -11,7 +11,7 @@
 
 - Instalar o nodemon antes globalmente nao precisa ser dentro  da pasta com o comando "npm install -g nodemon"  sem as aspas.
 
-- Ative:
+-Ative:
 
 - Ativar o servidor do mongo com o comando "mongod" sem aspas e deixar aberto a tela do cmd.
 
@@ -23,7 +23,7 @@
 
 - Entrar no sistema com o link "http://localhost:8089"
 
-- Comandos:
+-Comandos:
 
 http://localhost:8089/admin/categorias/add -> adiciona categorias de noticias
 
