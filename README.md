@@ -1,6 +1,8 @@
 
 -Depois de baixar instale:
 
+- Rodar o "npm install"(Sem aspas no momento em que colar no terminal) dentro da pasta.
+
 - Instalar o express na pasta do projeto com o comando "npm install express --save" sem as aspas.
 
 - Instalar, biblioteca para tratar imagem , com o comando "npm install --save express-fileupload" sem as aspas.
