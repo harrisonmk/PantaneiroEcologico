@@ -30,12 +30,12 @@ const tutorial = new Schema({
         required: true
 
 
-    }
+    },
     autor: {
 
         type: String,
         require:true
-    },
+    }
 });
 
 mongoose.model("tutorial", tutorial);
