@@ -9,15 +9,19 @@
     <div class="card-body">
 
         <h4>{{nome}}</h4>
-        <small>Endereço: {{endereco}}</small><br>
+        <small>Bairro: {{bairro}}</small><br>
+        <small>Rua: {{rua}}</small><br>
+        <small>Numero: {{numero}}</small><br>
         <small>Data: {{data}}</small><br>
-        <a href="/admin/pontocoleta/edit/{{_id}}"><button class="btn btn-success mt-4">Editar Ponto Coleta</button></a>
 
-        <form action="/admin/pontocoleta/deletar" method="POST">
+        <a href="/admin/ponto-coleta/edit/{{_id}}"><button class="btn btn-success mt-4">Editar Ponto Coleta</button></a>
+
+        <form action="/admin/ponto-coleta/deletar" method="POST">
 
             <input type="hidden" name="id" value="{{_id}}">
             <button type="submit" class="btn btn-danger mt-2">Deletar Ponto de coleta</button>
 
+        
 
         </form> 
 

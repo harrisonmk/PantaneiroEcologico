@@ -9,13 +9,24 @@ const PontoColeta = new Schema({
 
 
     },
-
-    endereco: {
+    bairro:{
+        type: String,
+        required: true
+ 
+    },
+    rua:{
         type: String,
         required: true
 
+    },
+    numero:{
+        type: Number,
+        required: true
 
     },
+    itens:[{
+        String
+    }],
 
 
     data: {

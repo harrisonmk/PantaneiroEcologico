@@ -343,7 +343,8 @@ rota.get("/postagens/deletar/:id", (req, res) => {
 
 });
 
-//ponto de coleta
+// ***********************  ponto de coleta ********************************
+
 rota.get('/pontocoleta/add', (req, res) => {
 
 
@@ -353,21 +354,33 @@ rota.get('/pontocoleta/add', (req, res) => {
 
 });
 
-
+ // adiciona um ponto de coleta
 rota.post("/pontocoleta/nova", (req, res) => {
 
-  var erros = []
+  var erros = [];
 
   if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
     erros.push({ texto: "Nome Invalido" });
   }
 
-  if (!req.body.endereco || typeof req.body.endereco == undefined || req.body.endereco == null) {
+  if (!req.body.bairro || typeof req.body.bairro == undefined || req.body.bairro == null) {
 
-    erros.push({ texto: "endereco Invalido" });
+    erros.push({ texto: "bairro Invalido" });
+  }
+  if (!req.body.rua || typeof req.body.rua == undefined || req.body.rua == null) {
+
+    erros.push({ texto: "rua Invalida" });
   }
 
-  if (req.body.nome.length < 2) {
+  if (!req.body.numero || typeof req.body.numero == undefined || req.body.numero == null) {
+
+    erros.push({ texto: "numero Invalido" });
+  }
+
+    
+
+
+  if (req.body.nome.length < 5) {
     erros.push({ texto: "Nome e muito pequeno" });
   }
 
@@ -379,9 +392,14 @@ rota.post("/pontocoleta/nova", (req, res) => {
     const novoPontoColeta = {
 
       nome: req.body.nome,
-      endereco: req.body.endereco
+      bairro: req.body.bairro,
+      rua: req.body.rua,
+      numero: req.body.numero,
+      itens : req.body.itens
+      
+      
 
-    }
+    };
 
     new PontoColeta(novoPontoColeta).save().then(() => {
 
@@ -405,7 +423,7 @@ rota.post("/pontocoleta/nova", (req, res) => {
 rota.get("/pontocoleta", (req, res) => {
 
 
-  //lista as categorias
+  //lista os pontos de coleta
   PontoColeta.find().sort({ date: 'desc' }).then((pontocoleta) => {
     res.render("admin/pontocoleta", { pontocoleta: pontocoleta });
 
@@ -419,159 +437,102 @@ rota.get("/pontocoleta", (req, res) => {
 
 });
 
-/**NOTICIAS */
 
-//adiciona uma postagem
-rota.get("/noticias/add", (req, res) => {
+//rota para editar um pontocoleta e mostrar os valores no campo para serem editador
+rota.get("/ponto-coleta/edit/:id", (req, res) => {
 
-  Noticias.find().then((noticias) => {
-
-    res.render("admin/addNoticias", { noticias: noticias });
-
+  PontoColeta.findOne({ _id: req.params.id }).then((pontocoleta) => {
+    //categoria eh um objeto que pode ser usado na view
+    res.render("admin/editpontocoleta", { pontocoleta: pontocoleta });
 
   }).catch((err) => {
-
-    req.flash("error_msg", "Houve um erro ao carregar o formulario");
-    res.redirect("/admin");
-
+    req.flash("error_msg", "Esta Categoria Nao Existe");
+    res.redirect("/admin/pontocoleta");
   });
+
 });
 
 
-rota.post("/noticias/nova", (req, res) => {
+rota.post("/ponto-coleta/edit", (req, res) => {
 
-  var erros = []
+  PontoColeta.findOne({ _id: req.body.id }).then((pontocoleta) => {
 
-  if (req.body.Noticia == "0") {
+    var erros = [];
 
-    erros.push({ texto: "kasjaksjaksia" });
-
-  }
-  if (erros.length > 0) {
-    res.render("admin/addNoticias", { erros: erros });
-  } else {
-
-    const novaNoticia = {
-
-      "titulo": req.body.titulo,
-      "descricao": req.body.descricao,
-      "conteudo": req.body.conteudo,
-      "data": req.body.data,
-      "imagem": req.body.imagem
-
+    if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
+      erros.push({ texto: "Nome Invalido" });
     }
-    new Noticia(novaNoticia).save().then(() => {
-      req.flash("success_msg", "noticia adicionada com sucesso!");
-      res.redirect("/admin/noticias");
-
-    }).catch((err) => {
-
-      req.flash("error_msg", "houve um erro durante o salvamento da noticia");
-      res.redirect("/admin/noticias");
-
-    });
-
-  }
-
-});
-
-
-rota.get("/noticias", (req, res) => {
-
-
-  //lista as noticias
-  Noticias.find().sort({ date: 'desc' }).then((noticias) => {
-    res.render("admin/noticias", { noticias: noticias });
-
-  }).catch((err) => {
-
-    req.flash("error_msg", "Houve um erro ao listar as noticias");
-    res.redirect("/admin");
-
-  });
-
-
-});
-
-
-//produto
-rota.get('/produto/add', (req, res) => {
-
-  res.render("admin/addproduto");
-
-});
-
-rota.post("/produto/nova", (req, res) => {
-
-  var erros = []
-
-  if (!req.body.titulo || typeof req.body.titulo == undefined || req.body.titulo == null) {
-    erros.push({ texto: "Titulo Invalido" });
-  }
-
-  if (!req.body.subtitulo || typeof req.body.subtitulo == undefined || req.body.subtitulo == null) {
-
-    erros.push({ texto: "Subtitulo Invalido" });
-  }
   
-  if (!req.body.texto || typeof req.body.texto == undefined || req.body.texto == null) {
-
-    erros.push({ texto: "Texto Invalido" });
-  }
+    if (!req.body.bairro || typeof req.body.bairro == undefined || req.body.bairro == null) {
   
-  if (req.body.titulo.length < 2) {
-    erros.push({ texto: "Titulo muito pequeno" });
-  }
+      erros.push({ texto: "bairro Invalido" });
+    }
+    if (!req.body.rua || typeof req.body.rua == undefined || req.body.rua == null) {
   
-  if (req.body.subtitulo.length < 2) {
-    erros.push({ texto: "Subtitulo muito pequeno" });
-  }
+      erros.push({ texto: "rua Invalida" });
+    }
   
-  if (req.body.texto.length < 2) {
-    erros.push({ texto: "Texto muito pequeno" });
-  }
+    if (!req.body.numero || typeof req.body.numero == undefined || req.body.numero == null) {
   
-
-  if (erros.length > 0) {
-    res.render("admin/addproduto", { erros: erros });
-
-  } else {
-
-    const novoProduto = {
-
-      titulo: req.body.titulo,
-      subtitulo: req.body.subtitulo,
-	  texto: req.body.texto
-
+      erros.push({ texto: "numero Invalido" });
+    }
+    if (req.body.nome.length < 2) {
+      erros.push({ texto: "Nome  muito pequeno" });
     }
 
-    new Produto(novoProduto).save().then(() => {
+    if (erros.length > 0) {
+      res.render("admin/editpontocoleta", { pontocoleta: pontocoleta, erros: erros });
 
-      req.flash("success_msg", "Produto Criado Com Sucesso");
-      res.redirect("/admin/produto");
-    }).catch((err) => {
+    } else {
 
-      req.flash("error_msg", "Houve um erro ao salvar o Produto, tente novamente");
-      res.redirect("/admin");
+      pontocoleta.nome=req.body.nome,
+      pontocoleta.bairro= req.body.bairro,
+      pontocoleta.rua= req.body.rua,
+      pontocoleta.numero= req.body.numero;
+       
 
-    });
+      pontocoleta.save().then(() => {
 
-  }
+        req.flash("success_msg", "ponto de coleta Editada com Sucesso");
+        res.redirect("/admin/pontocoleta");
 
-});
+      }).catch((err) => {
 
-rota.get("/produto", (req, res) => {
+        req.flash("error_msg", "houve um erro interno ao salvar a edicao da categoria");
+        res.redirect("/admin/pontocoleta");
 
-  //lista as produtos
-  Produto.find().sort({ date: 'desc' }).then((produto) => {
-    res.render("admin/produto", { produto: produto });
+      });
+    }
 
   }).catch((err) => {
 
-    req.flash("error_msg", "Houve um erro ao listar os Produtos");
-    res.redirect("/admin");
+    req.flash(("error_msg", "Houve um erro ao editar a categoria"));
+    res.redirect("/admin/pontocoleta");
+
   });
+
+
 });
+
+
+//metodo para deletar um ponto de coleta
+rota.post("/ponto-coleta/deletar", (req, res) => {
+
+  PontoColeta.remove({ _id: req.body.id }).then(() => {
+
+    req.flash("success_msg", "Categoria Deletada Com Sucesso!");
+    res.redirect("/admin/pontocoleta");
+
+  }).catch((err) => {
+
+    req.flash("error_msg", "houve um erro ao deletar uma categoria");
+    res.redirect("/admin/pontocoleta");
+
+  });
+
+
+});
+
 
 
 
