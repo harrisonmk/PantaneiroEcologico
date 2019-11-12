@@ -22,6 +22,7 @@ const Noticias = mongoose.model("noticias");
 
 require("./modelo/Produto");//produto
 const Produto = mongoose.model("produto");//produto
+const Sobre = require("./views/sobre");
 
 //configuracoes
 
@@ -208,6 +209,16 @@ app.get("/produtos",(req,res)=>{
  });
 
 });
+
+
+app.get("/sobre",(req,res)=>{
+
+   res.render("sobre/index");
+
+ });
+
+
+
 
 app.get("/404", (req, res) => {
 
