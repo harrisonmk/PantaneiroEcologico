@@ -533,7 +533,78 @@ rota.post("/ponto-coleta/deletar", (req, res) => {
 
 });
 
+//adiciona uma postagem
+rota.get("/noticias/add", (req, res) => {
 
+  Noticias.find().then((noticias) => {
+
+    res.render("admin/addNoticias", { noticias: noticias });
+
+
+  }).catch((err) => {
+
+    req.flash("error_msg", "Houve um erro ao carregar o formulario");
+    res.redirect("/admin");
+
+  });
+});
+
+
+rota.post("/noticias/nova", (req, res) => {
+
+  var erros = []
+
+  if (req.body.Noticia == "0") {
+
+    erros.push({ texto: "kasjaksjaksia" });
+
+  }
+  if (erros.length > 0) {
+    res.render("admin/addNoticias", { erros: erros });
+  } else {
+
+    const novaNoticia = {
+
+      "titulo": req.body.titulo,
+      "descricao": req.body.descricao,
+      "conteudo": req.body.conteudo,
+      "imagem": req.body.imagem,
+      "slug": req.body.slug,
+      "data": req.body.data
+      
+
+    }
+    new Noticia(novaNoticia).save().then(() => {
+      req.flash("success_msg", "noticia adicionada com sucesso!");
+      res.redirect("/admin/noticias");
+
+    }).catch((err) => {
+
+      req.flash("error_msg", "houve um erro durante o salvamento da noticia");
+      res.redirect("/admin/noticias");
+
+    });
+
+  }
+
+});
+
+rota.get("/noticias", (req, res) => {
+
+
+  //lista as noticias
+  Noticias.find().sort({ date: 'desc' }).then((noticias) => {
+    res.render("admin/noticias", { noticias: noticias });
+
+  }).catch((err) => {
+
+    req.flash("error_msg", "Houve um erro ao listar as noticias");
+    res.redirect("/admin");
+
+  });
+
+
+});
 
 
 module.exports = rota;

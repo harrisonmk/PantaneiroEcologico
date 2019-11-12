@@ -35,6 +35,12 @@ const Noticias = new Schema({
 
 
     },
+    
+    slug: {
+        type: String,
+        required: true
+
+    },
    
    
     data: {

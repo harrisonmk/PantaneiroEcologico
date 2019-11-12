@@ -20,11 +20,14 @@ const fileUpload = require("express-fileupload");
 require("./modelo/Noticias");
 const Noticias = mongoose.model("noticias");
 
+
+
 require("./modelo/Produto");//produto
 const Produto = mongoose.model("produto");//produto
 const Sobre = require("./views/sobre");
 
 //configuracoes
+app.use(fileUpload());
 
 //sessao
 app.use(session({
@@ -226,7 +229,53 @@ app.get("/404", (req, res) => {
 
 });
 
-//
+
+
+app.post("/noticias/nova", (req, res) => {
+   const {
+       imagem
+   } = req.files
+
+   
+   imagem.mv(path.resolve(__dirname, 'public/upload/noticias', imagem.name), (error) => {
+       Noticias.create({
+           ...req.body,
+           imagem: `/noticias/${imagem.name}`
+       }, (error, Noticias) => {
+           res.redirect('/');
+       });
+   })
+});
+
+
+
+
+/* slug noticias */
+
+
+
+app.get("/homeNoticias/:slug", (req, res) => {
+
+   Noticias.findOne({ slug: req.params.slug }).then((noticias) => {
+      if (noticias) {
+         res.render("noticias/homeNoticias", { noticias: noticias })
+
+      } else {
+
+         req.flash("error_msg", "N existe");
+         res.redirect("/");
+
+      }
+
+
+   }).catch((err) => {
+
+      req.flash("error_msg", "Houve um erro interno");
+      res.redirect("/");
+
+   });
+
+});
 
 
 app.use('/admin', admin);
