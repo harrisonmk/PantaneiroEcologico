@@ -3,29 +3,33 @@
 <h2>Todas as  Noticias:</h2>
 
 
-
-{{#each noticias}}
-  <div class="card">
-      <div class="card-body">
-
-          <h3>Titulo:{{titulo}}</h3>
-          <h4>Descrição:</h3> {{descricao}}</p>
-          <p><h4>Conteúdo:</h3>{{conteudo}}</p>
-          <small>Data: {{data}}</small><br>
-            
-          <img src="../upload{{imagem}}">
-          
-      </div>
+ <link rel="stylesheet" href="../css/estilo.css">
 
 
+<div class="card-deck"> 
+
+<div classs="row>">
+<div class="col-sm-12" >
+{{#each noticias}} 
+    <div class="card" >
+          <a href="/homeNoticias/{{slug}}"><img src="../upload{{imagem}}" class="card-img-top" alt="..."></a>
+        <div class="card-body">
+          <h5 class="card-title">Titulo: {{titulo}}</h5>
+          <p class="card-text">Descricao: {{descricao}}.</p>
+        </div>
+    </div>
+    
+  
   </div>
-{{else}}
+  {{else}}
+  <p>Nenhuma noticia Registrada</p>
+  {{/each}}
+  
+</div>
+</div>
+      <center>
+        <a href="/admin/noticias/add" <button class="btn btn-success">Nova Noticia</button> </a>
+      </center>
 
 
 
-<p>Nenhuma noticia Registrada</p>
-{{/each}}
-
-<center>
-  <a href="/admin/noticias/add" <button class="btn btn-success">Nova Noticia</button> </a>
-</center>
