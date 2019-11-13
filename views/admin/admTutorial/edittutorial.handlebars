@@ -1,0 +1,35 @@
+{{#each erros}}
+<div class="alert alert-danger">{{texto}}</div>
+
+{{else}}
+{{/each}}
+
+<div class="card">
+
+    <div class="card-body">
+
+        <h4>Editar Tutorial:</h4>
+
+        <form action="/admin/tutorial/edit" method="POST">
+
+            <input type="hidden" value="{{postagem._id}}" name="id">
+
+            <label for="titulo">Titulo</label>
+            <input type="text" name="titulo" class="form-control" value="{{tutorial.titulo}}" required>
+
+            <label for="subtitulo">Subtitulo</label>
+            <input type="text" name="subtitulo" class="form-control" value="{{tutorial.subtitulo}}" required>
+
+            <label for="texto">Descrição</label>
+            <input type="text" name="texto" class="form-control" value="{{tutorial.texto}}" required>
+
+            <label for="autor">Autor</label>
+            <textarea name="autor" class="form-control" required>{{tutorial.autor}} </textarea>
+
+            <button class="btn btn-success mt-2" type="submit">Editar Tutorial</button>
+
+        </form>
+    </div>
+
+
+</div>

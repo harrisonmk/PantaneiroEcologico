@@ -12,6 +12,9 @@ const Noticias = mongoose.model("noticias");
 require("../modelo/Produto");
 const Produto = mongoose.model("produto");
 
+require("../modelo/Tutorial");
+const tutorial = mongoose.model("Tutorial");
+
 rota.get('/', (req, res) => {
 
   res.render("admin/index");
@@ -606,6 +609,88 @@ rota.get("/noticias", (req, res) => {
 
 });
 
+//*************************** Tutoriais inicializa aqui **************************/
+
+rota.get('/tutoriais/add', (req, res) => {
+
+
+  res.render("admin/admTutorial/addtutorial");
+
+
+
+});
+
+rota.post("/tutoriais/nova", (req, res) => {
+
+  var erros = [];
+  const novaTutorial = {
+    titulo: req.body.titulo,
+    subtitulo: req.body.subtitulo,
+    texto: req.body.texto,
+    autor: req.body.autor
+  }
+  new Tutorial(novaTutorial).save().then(() => {
+    req.flash("success_msg", "Tutorial Criado com Sucesso");
+    //se o cadastro der certo vai ser redirecionado
+    res.redirect("/admin/admTutorial/tutorial");
+  }).catch((err) => {
+    req.flash("error_msg", "Houve um erro ao salvar o tutorial, tente novamente");
+    res.redirect("/admin");
+  });
+
+
+});
+
+//rota para editar uma categoria e mostrar os valores no campo para serem editador
+rota.get("/tutoriais/edit/:id", (req, res) => {
+
+  Categoria.findOne({ _id: req.params.id }).then((tutorial) => {
+    //categoria eh um objeto que pode ser usado na view
+    res.render("admin/admTutorial/edittutorial", { tutorial: tutorial });
+
+  }).catch((err) => {
+    req.flash("error_msg", "O tutorial Nao Existe");
+    res.redirect("/admin/tutoriais");
+  });
+
+});
+
+
+rota.post("/tutoriais/edit", (req, res) => {
+
+  Categoria.findOne({ _id: req.body.id }).then((tutorial) => {
+
+    var erros = []
+    tutorial.titulo = req.body.titulo;
+    tutorial.subtitulo = req.body.subtitulo;
+    tutorial.texto = req.body.texto;
+    tutorial.autor = req.body.autor;
+    tutorial.save().then(() => {
+      req.flash("success_msg", "Tutorial Editado com Sucesso");
+      res.redirect("/admin/tutorial");
+    }).catch((err) => {
+      req.flash("error_msg", "houve um erro interno ao salvar a edicao da categoria");
+      res.redirect("/admin/tutorial");
+    });
+  }).catch((err) => {
+    req.flash(("error_msg", "Houve um erro ao editar o tutorial"));
+    res.redirect("/admin/tutorial");
+  });
+});
+
+
+rota.post("/tutoriais/deletar", (req, res) => {
+
+  Categoria.remove({ _id: req.body.id }).then(() => {
+
+    req.flash("success_msg", "Tutorial Deletado Com Sucesso!");
+    res.redirect("/admin/tutoriais");
+
+  }).catch((err) => {
+    req.flash("error_msg", "houve um erro ao deletar o tutorial");
+    res.redirect("/admin/tutoriais")
+  });
+});
 
 module.exports = rota;
 

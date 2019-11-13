@@ -20,7 +20,8 @@ const fileUpload = require("express-fileupload");
 require("./modelo/Noticias");
 const Noticias = mongoose.model("noticias");
 
-
+require("./modelo/Tutorial");
+const Tutorial = mongoose.model("Tutorial");
 
 require("./modelo/Produto");//produto
 const Produto = mongoose.model("produto");//produto
@@ -174,6 +175,15 @@ app.get("/categorias/:slug", (req, res) => {
 
 });
 
+//Tutorial
+app.get('/tutorial', (req, res) => {
+   Tutorial.find().populate("tutorial").sort({ data: "desc" }).then((tutorial) => {
+      res.render("index", { tutoriais: tutoriais });
+   }).catch((err) => {
+      req.flash("error_msg", "Houve um erro interno");
+      res.redirect("/404");
+   });
+});
 
 app.get("/pontocoletas",(req,res)=>{
 

@@ -1,0 +1,37 @@
+{{#each erros}}
+
+<div class="alert alert-danger">{{texto}}</div>
+
+{{else}}
+
+{{/each}}
+
+<h3>Tutorial:</h3>
+<center>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+
+                <form action="/admin/admTutorial/tutorial/nova" method="POST">
+
+                    <label for="titulo">Titulo: </label>
+                    <input type="text" id="titulo" name="titulo" placeholder="Digite o Titulo" class="form-control">
+                    <br>
+                    <label for="subtitulo">Subtítulo: </label>
+                    <input type="text" id="subtitulo" name="subtitulo" placeholder="Subtitulo do tutorial"
+                        class="form-control">
+                    <br>
+                    <label for="texto">Assunto: </label>
+                    <input type="text" id="texto" name="texto" placeholder="Assunto do tutorial" class="form-control">
+                    <br>
+                    <label for="autor">Autor: </label>
+                    <input type="text" id="autor" name="autor" placeholder="autor do tutorial" class="form-control">
+                    <br>
+                    <button type="submit" class="btn btn-success">Criar Tutorial</button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</center>
