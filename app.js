@@ -62,7 +62,7 @@ app.set('view engine', 'handlebars');
 //'mongodb+srv://Javeiro:Javeiro1996@cluster0-gdgsj.mongodb.net/pantaneiroecologico?retryWrites=true&w=majority',{useNewUrlParser:true}
 //"mongodb://localhost/pantaneiroecologico"
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://Javeiro:Javeiro1996@cluster0-gdgsj.mongodb.net/pantaneiroecologico?retryWrites=true&w=majority', { useNewUrlParser: true }).then(() => {
+mongoose.connect('mongodb://localhost:27017/pantaneiroecologico', { useNewUrlParser: true }).then(() => {
 
    console.log("conectado ao mongo");
 
@@ -177,7 +177,8 @@ app.get("/categorias/:slug", (req, res) => {
 
 //Tutorial
 app.get('/tutorial', (req, res) => {
-   Tutorial.find().populate("tutorial").sort({ data: "desc" }).then((tutorial) => {
+   Tutorial.find().populate("tutorial").sort({ data: "desc" }).then((tutoriais) => {
+      console.log(tutoriais)
       res.render("index", { tutoriais: tutoriais });
    }).catch((err) => {
       req.flash("error_msg", "Houve um erro interno");

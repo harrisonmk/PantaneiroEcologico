@@ -13,7 +13,7 @@ require("../modelo/Produto");
 const Produto = mongoose.model("produto");
 
 require("../modelo/Tutorial");
-const tutorial = mongoose.model("Tutorial");
+const Tutorial = mongoose.model("Tutorial");
 
 rota.get('/', (req, res) => {
 
@@ -612,7 +612,7 @@ rota.get("/noticias", (req, res) => {
 //*************************** Tutoriais inicializa aqui **************************/
 
 rota.get('/tutoriais/add', (req, res) => {
-
+console.log('entrei')
 
   res.render("admin/admTutorial/addtutorial");
 
@@ -622,7 +622,6 @@ rota.get('/tutoriais/add', (req, res) => {
 
 rota.post("/tutoriais/nova", (req, res) => {
 
-  var erros = [];
   const novaTutorial = {
     titulo: req.body.titulo,
     subtitulo: req.body.subtitulo,
@@ -632,7 +631,7 @@ rota.post("/tutoriais/nova", (req, res) => {
   new Tutorial(novaTutorial).save().then(() => {
     req.flash("success_msg", "Tutorial Criado com Sucesso");
     //se o cadastro der certo vai ser redirecionado
-    res.redirect("/admin/admTutorial/tutorial");
+    res.redirect("/admin/tutoriais");
   }).catch((err) => {
     req.flash("error_msg", "Houve um erro ao salvar o tutorial, tente novamente");
     res.redirect("/admin");
