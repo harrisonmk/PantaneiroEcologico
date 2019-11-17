@@ -1,17 +1,26 @@
-<div class="card">
+<head>
+    <link rel="stylesheet" href="../css/tutoriais.css">
+</head>
+<h2>Tutoriais</h2>
+<br>
+{{#each tutorial}}
 
-    <div class="card-body">
-
-        <h1>{{tutorial.titulo}}</h1>
-        <h1>{{tutorial.subtitulo}}</h1>
-        {{tutoriais.texto}}
-        <hr>
-        <small>Autor: {{tutorial.autor}}</small><br>
-        <small>Data do Tutorial: {{tutorial.data}}</small><br>
-        <hr>
-
-        
-
+<div class="card mb-2"  style="max-width: 40rem;">
+    <div class="card-header">
+        <h4>Título: {{titulo}}</h4>
+        <div class="subtitulo">Subtítulo: {{subtitulo}}</div>
     </div>
-
+    <div class="card-body">
+        <p  class="texto-tutorial" class="ponto-coleta-texto">{{texto}}<small>       
+    </div>
+    <div class="card-footer text-muted">
+        <blockquote class="blockquote mb-0">
+            <footer class="autor" class="blockquote-footer">Autor: {{autor}}</footer>
+        </blockquote>
+        <div class="data" class="d-flex justify-content-end">Data de Publicação: {{data}}</div>
+    </div>
 </div>
+
+{{else}}
+<h4 class="mt-3"> Não houve registro de nenhum tutorial</h4>
+{{/each}}

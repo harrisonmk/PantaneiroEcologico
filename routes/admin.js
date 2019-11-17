@@ -611,17 +611,20 @@ rota.get("/noticias", (req, res) => {
 
 //*************************** Tutoriais inicializa aqui **************************/
 
+rota.get("/tutoriais", (req, res) => {
+  Tutorial.find().sort({ date: 'desc' }).then((tutorial) => {
+    res.render("admin/controllerTutorial/tutoriais", { tutorial: tutorial });
+  }).catch((err) => {
+    req.flash("error_msg", "Houve um erro ao listar os Tutoriais");
+    res.redirect("/admin");
+  });
+});
+
 rota.get('/tutoriais/add', (req, res) => {
-console.log('entrei')
-
-  res.render("admin/admTutorial/addtutorial");
-
-
-
+  res.render("admin/controllerTutorial/addtutorial");
 });
 
 rota.post("/tutoriais/nova", (req, res) => {
-
   const novaTutorial = {
     titulo: req.body.titulo,
     subtitulo: req.body.subtitulo,
@@ -630,35 +633,15 @@ rota.post("/tutoriais/nova", (req, res) => {
   }
   new Tutorial(novaTutorial).save().then(() => {
     req.flash("success_msg", "Tutorial Criado com Sucesso");
-    //se o cadastro der certo vai ser redirecionado
     res.redirect("/admin/tutoriais");
   }).catch((err) => {
     req.flash("error_msg", "Houve um erro ao salvar o tutorial, tente novamente");
     res.redirect("/admin");
   });
 
-
 });
-
-//rota para editar uma categoria e mostrar os valores no campo para serem editador
-rota.get("/tutoriais/edit/:id", (req, res) => {
-
-  Categoria.findOne({ _id: req.params.id }).then((tutorial) => {
-    //categoria eh um objeto que pode ser usado na view
-    res.render("admin/admTutorial/edittutorial", { tutorial: tutorial });
-
-  }).catch((err) => {
-    req.flash("error_msg", "O tutorial Nao Existe");
-    res.redirect("/admin/tutoriais");
-  });
-
-});
-
-
 rota.post("/tutoriais/edit", (req, res) => {
-
   Categoria.findOne({ _id: req.body.id }).then((tutorial) => {
-
     var erros = []
     tutorial.titulo = req.body.titulo;
     tutorial.subtitulo = req.body.subtitulo;
@@ -676,11 +659,21 @@ rota.post("/tutoriais/edit", (req, res) => {
     res.redirect("/admin/tutorial");
   });
 });
+rota.get("/tutoriais/edit/:id", (req, res) => {
 
+  Categoria.findOne({ _id: req.params.id }).then((tutorial) => {
+    res.render("admin/controllerTutorial/eittutorial", { tutorial: tutorial });
+
+  }).catch((err) => {
+    req.flash("error_msg", "O tutorial Nao Existe");
+    res.redirect("/admin/tutoriais");
+  });
+
+});
 
 rota.post("/tutoriais/deletar", (req, res) => {
 
-  Categoria.remove({ _id: req.body.id }).then(() => {
+  Tutorial.remove({ _id: req.body.id }).then(() => {
 
     req.flash("success_msg", "Tutorial Deletado Com Sucesso!");
     res.redirect("/admin/tutoriais");

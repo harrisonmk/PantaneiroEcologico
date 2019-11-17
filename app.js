@@ -176,18 +176,17 @@ app.get("/categorias/:slug", (req, res) => {
 });
 
 //Tutorial
-app.get('/tutorial', (req, res) => {
-   Tutorial.find().populate("tutorial").sort({ data: "desc" }).then((tutoriais) => {
-      console.log(tutoriais)
-      res.render("index", { tutoriais: tutoriais });
+app.get("/tutorial", (req, res) => {
+   //lista as categorias
+   Tutorial.find().sort({ date: 'desc' }).then((tutorial) => {
+      res.render("tutoriais/index", { tutorial: tutorial });
    }).catch((err) => {
-      req.flash("error_msg", "Houve um erro interno");
-      res.redirect("/404");
+      req.flash("error_msg", "Houve um erro ao listar os tutoriais");
+      res.redirect("/");
    });
 });
 
 app.get("/pontocoletas",(req,res)=>{
-
    //lista as categorias
   PontoColeta.find().sort({ date: 'desc' }).then((pontocoleta) => {
    res.render("pontocoleta/index", { pontocoleta: pontocoleta });
