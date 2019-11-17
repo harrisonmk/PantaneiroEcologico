@@ -636,12 +636,24 @@ rota.post("/tutoriais/nova", (req, res) => {
     res.redirect("/admin/tutoriais");
   }).catch((err) => {
     req.flash("error_msg", "Houve um erro ao salvar o tutorial, tente novamente");
-    res.redirect("/admin");
+    res.redirect("/admin/tutoriais");
   });
 
 });
+
+rota.get("/tutoriais/edit/:id", (req, res) => {
+
+  Tutorial.findOne({ _id: req.params.id }).then((tutorial) => {
+    res.render("admin/controllerTutorial/edittutorial", { tutorial: tutorial });
+
+  }).catch((err) => {
+    req.flash("error_msg", "O tutorial Nao Existe");
+    res.redirect("/admin/tutoriais");
+  });
+});
+
 rota.post("/tutoriais/edit", (req, res) => {
-  Categoria.findOne({ _id: req.body.id }).then((tutorial) => {
+  Tutorial.findOne({ _id: req.body.id }).then((tutorial) => {
     var erros = []
     tutorial.titulo = req.body.titulo;
     tutorial.subtitulo = req.body.subtitulo;
@@ -649,26 +661,15 @@ rota.post("/tutoriais/edit", (req, res) => {
     tutorial.autor = req.body.autor;
     tutorial.save().then(() => {
       req.flash("success_msg", "Tutorial Editado com Sucesso");
-      res.redirect("/admin/tutorial");
+      res.redirect("/admin/tutoriais");
     }).catch((err) => {
       req.flash("error_msg", "houve um erro interno ao salvar a edicao da categoria");
-      res.redirect("/admin/tutorial");
+      res.redirect("/admin/tutoriais");
     });
   }).catch((err) => {
     req.flash(("error_msg", "Houve um erro ao editar o tutorial"));
-    res.redirect("/admin/tutorial");
-  });
-});
-rota.get("/tutoriais/edit/:id", (req, res) => {
-
-  Categoria.findOne({ _id: req.params.id }).then((tutorial) => {
-    res.render("admin/controllerTutorial/eittutorial", { tutorial: tutorial });
-
-  }).catch((err) => {
-    req.flash("error_msg", "O tutorial Nao Existe");
     res.redirect("/admin/tutoriais");
   });
-
 });
 
 rota.post("/tutoriais/deletar", (req, res) => {
