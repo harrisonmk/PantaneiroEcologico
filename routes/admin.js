@@ -610,60 +610,87 @@ rota.get("/noticias", (req, res) => {
 });
 
 //*************************** Tutoriais inicializa aqui **************************/
-
+//resposanvel pela pagina de gerenciaciamento  dos tutoriais
 rota.get("/tutoriais", (req, res) => {
+  //metodo resposanvel pro buscar a data de cada tutorial e coletar todos seus atributos
   Tutorial.find().sort({ date: 'desc' }).then((tutorial) => {
+    //pega o arquivo de localizao da pagina de gerenciamento
     res.render("admin/controllerTutorial/tutoriais", { tutorial: tutorial });
+    //funcao caso der errado
   }).catch((err) => {
+    //mensagem de erro caso der muito errado
     req.flash("error_msg", "Houve um erro ao listar os Tutoriais");
+    //caso der ruim sera direcionado para a oagin
     res.redirect("/admin");
   });
 });
-
+//rota responsavel por rendenirizar a pagina de tutoriais add
 rota.get('/tutoriais/add', (req, res) => {
+  //res e um metodo responsavel pelo caminho do arquivo que sera rendenerizado 
   res.render("admin/controllerTutorial/addtutorial");
 });
-
+//rota resposnsavel por receber metodo post
 rota.post("/tutoriais/nova", (req, res) => {
+  //consta que recebe os valores dos campos de input da página de adicionar novos tutoriais
   const novaTutorial = {
+    //atributo de dentro da collection que extrai os campos equivalentes do form html
     titulo: req.body.titulo,
     subtitulo: req.body.subtitulo,
     texto: req.body.texto,
     autor: req.body.autor
   }
+  //metodo resposanvel por salvar o novo tutorial 
   new Tutorial(novaTutorial).save().then(() => {
+    //mensagem de sucesso caso der certo
     req.flash("success_msg", "Tutorial Criado com Sucesso");
+    //redirecionar para area de gernciamento caso for sucessso
     res.redirect("/admin/tutoriais");
+    //caso erro
   }).catch((err) => {
+    //mensagem de erro
     req.flash("error_msg", "Houve um erro ao salvar o tutorial, tente novamente");
+    //direcionamento para pagina de gerencimamento
     res.redirect("/admin/tutoriais");
   });
 
 });
 
+//rota responsavel por receber o id do tutorial 
 rota.get("/tutoriais/edit/:id", (req, res) => {
-
+  //metodo responsavel por buscar o id na collection e extrair os dados e rendenerizar no moemnto de editar
   Tutorial.findOne({ _id: req.params.id }).then((tutorial) => {
+    //rendeneriza os dados na página de edicao
     res.render("admin/controllerTutorial/edittutorial", { tutorial: tutorial });
-
+//caso der merda
   }).catch((err) => {
+    //mesangem de erro caso der ruim
     req.flash("error_msg", "O tutorial Nao Existe");
+    //redirecionamento para area de gerenciamento
     res.redirect("/admin/tutoriais");
   });
 });
-
+//rota responsavel por realizar requisicao do tutorial pelo id extraindo dado por dado contido na parte interna
 rota.post("/tutoriais/edit", (req, res) => {
+  //metodo responsavel por realizar a busca do id dentro da collection para extrair atributos
   Tutorial.findOne({ _id: req.body.id }).then((tutorial) => {
+    //var e responsavel por mostrar os erros 
     var erros = []
+    //atributos tutorial isntancionando atributo da coletion e realizando requisicao do post apos alteracoes
     tutorial.titulo = req.body.titulo;
     tutorial.subtitulo = req.body.subtitulo;
     tutorial.texto = req.body.texto;
     tutorial.autor = req.body.autor;
+    //metodo que salva as modificacoes dentro do banco subescrevendo
     tutorial.save().then(() => {
+      //mensagem de sucesso
       req.flash("success_msg", "Tutorial Editado com Sucesso");
+      //redirecionamento para area de gerenciamento
       res.redirect("/admin/tutoriais");
+      //caso erro
     }).catch((err) => {
+      //mesangem de erro
       req.flash("error_msg", "houve um erro interno ao salvar a edicao da categoria");
+      //redirecionameneto para area de gerenciamento
       res.redirect("/admin/tutoriais");
     });
   }).catch((err) => {
@@ -672,15 +699,19 @@ rota.post("/tutoriais/edit", (req, res) => {
   });
 });
 
+//apagar o tutorial usando id 
 rota.post("/tutoriais/deletar", (req, res) => {
-
+  //metodo responsavel  pela remoção
   Tutorial.remove({ _id: req.body.id }).then(() => {
-
+    //mensagem de sucesso
     req.flash("success_msg", "Tutorial Deletado Com Sucesso!");
+    //redirecionanmento apos conclusao de acao
     res.redirect("/admin/tutoriais");
-
+    //parametro  de erro
   }).catch((err) => {
+    //mensagem de erro caso der merda
     req.flash("error_msg", "houve um erro ao deletar o tutorial");
+    //redirecionamento para pagina de gerenciamento
     res.redirect("/admin/tutoriais")
   });
 });
