@@ -3,27 +3,31 @@
       
 <hr>
 
-{{#each noticias}}
 
 <div class="card mt-4">
 
     <div class="card-body">
 
-        <h4>{{nome}}</h4>
-        <small>descricao: {{descricao}}</small><br>
-        <small> <h1>Conteúdo:</h1> {{conteudo}}</small><br>
-         <img src="../upload{{imagem}}"  width="250" height="150" /> >
-            
+        <h4>{{noticias.titulo}}</h4>
+        <small>descricao: {{noticias.descricao}}</small><br>
+        <br>
+       <center>
+         <img src="../upload{{noticias.imagem}}"  width="400" height="400" /> 
+        </br>    
+      <small> <h1>Conteúdo:</h1> {{noticias.conteudo}}</small><br>
+        
          <video width="320" height="240" controls>
-            <source src="../upload{{video}}" type="video/mp4">
+            <source src="../upload{{noticias.video}}" type="video/mp4">
            
          </video>
+
+         <br>
          
          <audio controls>
             <source src="../upload{{audio}}" type="audio/mpeg">
          </audio>
-         
-
+         </br>
+         </center>
 
      
         
@@ -32,8 +36,4 @@
 
 
 </div>
-
-{{else}}
- <h4 class="mt-3"> Nehuma NOticia registrada </h4>>
-{{/each}}
 
