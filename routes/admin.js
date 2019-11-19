@@ -398,6 +398,7 @@ rota.post("/pontocoleta/nova", (req, res) => {
       bairro: req.body.bairro,
       rua: req.body.rua,
       numero: req.body.numero,
+      horarioAtendimento : req.body.horarioAtendimento,
       itens : req.body.itens
       
       
@@ -488,10 +489,12 @@ rota.post("/ponto-coleta/edit", (req, res) => {
 
     } else {
 
-      pontocoleta.nome=req.body.nome,
-      pontocoleta.bairro= req.body.bairro,
-      pontocoleta.rua= req.body.rua,
+      pontocoleta.nome=req.body.nome;
+      pontocoleta.bairro= req.body.bairro;
+      pontocoleta.rua= req.body.rua;
       pontocoleta.numero= req.body.numero;
+      pontocoleta.horarioAtendimento = req.body.horarioAtendimento;
+      pontocoleta.itens = req.body.itens;
        
 
       pontocoleta.save().then(() => {

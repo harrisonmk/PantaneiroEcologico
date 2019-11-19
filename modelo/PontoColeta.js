@@ -24,6 +24,10 @@ const PontoColeta = new Schema({
         required: true
 
     },
+    horarioAtendimento :{
+     type: String   
+        
+    },
     itens: [String],
 
     data: {
