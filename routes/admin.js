@@ -599,10 +599,12 @@ rota.post("/noticias/nova", (req, res) => {
 
 });
 
+
+
 rota.get("/noticias", (req, res) => {
 
 
-  //lista as noticias
+  //lista as categorias
   Noticias.find().sort({ date: 'desc' }).then((noticias) => {
     res.render("admin/noticias", { noticias: noticias });
 
@@ -615,6 +617,8 @@ rota.get("/noticias", (req, res) => {
 
 
 });
+
+
 
 //*************************** Tutoriais inicializa aqui **************************/
 //resposanvel pela pagina de gerenciaciamento  dos tutoriais
