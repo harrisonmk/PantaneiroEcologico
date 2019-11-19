@@ -796,8 +796,19 @@ rota.post("/produto/nova", (req, res) => {
 
 });
 
+rota.get("/produto", (req, res) => {
 
+  // *********************** Listar os Produtos ********************************//
 
+  Produto.find().sort({ date: 'desc' }).then((produto) => {
+    res.render("admin/produto", { produto: produto });
+
+  }).catch((err) => {
+
+    req.flash("error_msg", "Houve um erro ao listar os Produtos");
+    res.redirect("/admin");
+  });
+});
 
 
 
