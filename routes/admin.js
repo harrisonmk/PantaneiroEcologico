@@ -810,6 +810,72 @@ rota.get("/produto", (req, res) => {
   });
 });
 
+  // *******************************************************//
+
+rota.get("/produto/edit/:id", (req, res) => {
+
+  Produto.findOne({ _id: req.params.id }).then((produto) => {
+  
+    res.render("admin/editproduto", { produto: produto });
+
+  }).catch((err) => {
+    req.flash("error_msg", "O produto Não Existe");
+    res.redirect("/admin/produto");
+  });
+
+});
+
+
+rota.post("/produto/edit", (req, res) => {
+
+  Produto.findOne({ _id: req.body.id }).then((produto) => {
+
+    var erros = [];
+
+    if (!req.body.titulo || typeof req.body.titulo == undefined || req.body.titulo == null) {
+      erros.push({ texto: "Título Invalido" });
+    }
+  
+    if (!req.body.subtitulo || typeof req.body.subtitulo == undefined || req.body.subtitulo == null) {
+  
+      erros.push({ texto: "Subtítulo Invalido" });
+    }
+    if (!req.body.texto || typeof req.body.texto == undefined || req.body.texto == null) {
+  
+      erros.push({ texto: "Texto Invalido" });
+    }
+
+    if (erros.length > 0) {
+      res.render("admin/editproduto", { produto: produto, erros: erros });
+
+    } else {
+
+      produto.titulo=req.body.titulo;
+      produto.subtitulo= req.body.subtitulo;
+      produto.texto= req.body.texto;
+
+      produto.save().then(() => {
+
+        req.flash("success_msg", "Produto Editado com Sucesso");
+        res.redirect("/admin/produto");
+
+      }).catch((err) => {
+
+        req.flash("error_msg", "Houve um erro interno ao salvar a edicao do Produto");
+        res.redirect("/admin/produto");
+
+      });
+    }
+
+  }).catch((err) => {
+
+    req.flash(("error_msg", "Houve um erro ao editar o produto"));
+    res.redirect("/admin/produto");
+
+  });
+
+
+});
 
 
 module.exports = rota;
