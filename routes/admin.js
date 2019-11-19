@@ -877,6 +877,27 @@ rota.post("/produto/edit", (req, res) => {
 
 });
 
+// *********************** Deletar Produtos ********************************//
+
+rota.post("/produto/deletar", (req, res) => {
+
+  Produto.remove({ _id: req.body.id }).then(() => {
+
+    req.flash("success_msg", "Produto Deletado Com Sucesso!");
+    res.redirect("/admin/produto");
+
+  }).catch((err) => {
+
+    req.flash("error_msg", "houve um erro ao deletar o produto");
+    res.redirect("/admin/produto");
+
+  });
+
+
+});
+
+ // *******************************************************//
+
 
 module.exports = rota;
 
