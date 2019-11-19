@@ -241,6 +241,27 @@ app.get("/404", (req, res) => {
 
 
 
+
+app.get("/noticias", (req, res) => {
+
+
+   //lista as noticias
+   Noticias.find().sort({ date: 'desc' }).then((noticias) => {
+     res.render("/noticias/index", { noticias: noticias });
+ 
+   }).catch((err) => {
+ 
+     req.flash("error_msg", "Houve");
+     res.redirect("/admin");
+ 
+   });
+ 
+ 
+ });
+ 
+
+
+
 app.post('/noticias/nova', (req, res) => {
    // Pega entrada de imagem e video e audio
    const { imagem, video, audio} = req.files;
@@ -274,8 +295,8 @@ app.post('/noticias/nova', (req, res) => {
                   Noticias.create({
                      ...req.body,
                      imagem: `/noticias/${imagem.name}`,
-                     video: `/noticias/${video.name}`,
-                     audio: `/noticias/${audio.name}`
+                     video: `/video/${video.name}`,
+                     audio: `/audio/${audio.name}`
                   }, (error, Noticias) => {
                      err = true;
                   });
