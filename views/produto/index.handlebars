@@ -4,18 +4,20 @@
 
 {{#each produto}}
 
-<div class="card">
+<div class="card mt-4">
 
     <div class="card-body">
 
-        <h2>{{titulo}}</h2>
-		<h4>{{subtitulo}}</h4>
-		<hr>
+        <h3>{{titulo}}</h3>
+        <p>{{subtitulo}}</p>
+        <hr>
         <small>Data: {{data}}</small><br>
 		<hr>
+        <h6>{{texto}}</h6>
 
-		<h6>{{texto}}</h6>
-        
+        <a href="/produto/{{slug}}"> <button class="btn btn-success">Leia Mais</button> </a>
+        <hr>
+        <small>Data de Publicação: {{data}}</small>
     </div>
 
 </div>
