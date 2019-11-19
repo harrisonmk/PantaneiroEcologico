@@ -560,7 +560,7 @@ rota.get("/noticias/add", (req, res) => {
 
 rota.post("/noticias/nova", (req, res) => {
 
-  var erros = []
+  var erros = [];
 
   if (req.body.Noticia == "0") {
 
@@ -681,7 +681,7 @@ rota.post("/tutoriais/edit", (req, res) => {
   //metodo responsavel por realizar a busca do id dentro da collection para extrair atributos
   Tutorial.findOne({ _id: req.body.id }).then((tutorial) => {
     //var e responsavel por mostrar os erros 
-    var erros = []
+    var erros = [];
     //atributos tutorial isntancionando atributo da coletion e realizando requisicao do post apos alteracoes
     tutorial.titulo = req.body.titulo;
     tutorial.subtitulo = req.body.subtitulo;
@@ -719,7 +719,7 @@ rota.post("/tutoriais/deletar", (req, res) => {
     //mensagem de erro caso der merda
     req.flash("error_msg", "houve um erro ao deletar o tutorial");
     //redirecionamento para pagina de gerenciamento
-    res.redirect("/admin/tutoriais")
+    res.redirect("/admin/tutoriais");
   });
 });
 
