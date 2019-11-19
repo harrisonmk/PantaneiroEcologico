@@ -241,22 +241,58 @@ app.get("/404", (req, res) => {
 
 
 
-app.post("/noticias/nova", (req, res) => {
-   const {
-       imagem
-   } = req.files
-
-   
-   imagem.mv(path.resolve(__dirname, 'public/upload/noticias', imagem.name), (error) => {
-       Noticias.create({
-           ...req.body,
-           imagem: `/noticias/${imagem.name}`
-       }, (error, Noticias) => {
-           res.redirect('/');
+app.post('/noticias/nova', (req, res) => {
+   // Pega entrada de imagem e video e audio
+   const { imagem, video, audio} = req.files;
+ 
+   //  pasta raiz
+   const pastaDestino = 'public/upload';
+ 
+   // Verifica erro
+   let err = false;
+ 
+   // Copia a imagem
+   imagem.mv(path.resolve(__dirname, `${pastaDestino}/noticias`, imagem.name), (ierror) => {
+    if(ierror) {
+      err = true;
+      return;
+    }
+ 
+            // Copia o vídeo
+      video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
+         if(verror) {
+            err = true;
+            return;
+         }
+            //copia o aduio para a pasta  
+            audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror)=> {  
+                if(auerror){
+                   err = true;
+                   return;
+                }        
+                //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+                  Noticias.create({
+                     ...req.body,
+                     imagem: `/noticias/${imagem.name}`,
+                     video: `/noticias/${video.name}`,
+                     audio: `/noticias/${audio.name}`
+                  }, (error, Noticias) => {
+                     err = true;
+                  });
+                  
+            });
        });
-   })
-});
-
+   });
+  
+   // Em caso de erro, redireciona
+   if(err) {
+    res.redirect('/noticias/nova');
+    return;
+   }
+ 
+   // fiinaliza
+   res.status(200).end();
+ });  
 
 
 
@@ -292,7 +328,7 @@ app.use('/admin', admin);
 
 
 //outros
-const porta = 8089;
+const porta = 3000;
 
 //em formato de arrow function
 app.listen(porta, () => {

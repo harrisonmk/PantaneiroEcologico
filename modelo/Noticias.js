@@ -29,17 +29,26 @@ const Noticias = new Schema({
 
     },
 
+    slug: {
+        type: String,
+        required: true
+    },
+
     imagem:  {
       type: String,
       required: true
 
 
     },
-    
-    slug: {
+
+    video: {
         type: String,
         required: true
+    },
 
+    audio: {
+        type: String,
+        required: true
     },
    
    

@@ -571,13 +571,15 @@ rota.post("/noticias/nova", (req, res) => {
       "titulo": req.body.titulo,
       "descricao": req.body.descricao,
       "conteudo": req.body.conteudo,
-      "imagem": req.body.imagem,
       "slug": req.body.slug,
+      "imagem": req.body.imagem,
+      "video": req.body.video,
+      "audio": req.body.audio,
       "data": req.body.data
       
 
     }
-    new Noticia(novaNoticia).save().then(() => {
+    new Noticias(novaNoticia).save().then(() => {
       req.flash("success_msg", "noticia adicionada com sucesso!");
       res.redirect("/admin/noticias");
 
