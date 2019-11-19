@@ -361,6 +361,8 @@ rota.get('/pontocoleta/add', (req, res) => {
 rota.post("/pontocoleta/nova", (req, res) => {
 
   var erros = [];
+  var resultado;
+  var itens;
 
   if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
     erros.push({ texto: "Nome Invalido" });
@@ -399,7 +401,7 @@ rota.post("/pontocoleta/nova", (req, res) => {
       rua: req.body.rua,
       numero: req.body.numero,
       horarioAtendimento : req.body.horarioAtendimento,
-      itens : req.body.itens
+      itens: req.body.itens.split(",")
       
       
 
@@ -494,7 +496,7 @@ rota.post("/ponto-coleta/edit", (req, res) => {
       pontocoleta.rua= req.body.rua;
       pontocoleta.numero= req.body.numero;
       pontocoleta.horarioAtendimento = req.body.horarioAtendimento;
-      pontocoleta.itens = req.body.itens;
+      pontocoleta.itens = req.body.itens.split(",");
        
 
       pontocoleta.save().then(() => {
