@@ -727,5 +727,79 @@ rota.post("/tutoriais/deletar", (req, res) => {
   });
 });
 
+
+
+// ***********************  Produtos ********************************//
+
+rota.get('/produto/add', (req, res) => {
+
+  res.render("admin/addproduto");
+
+});
+
+rota.post("/produto/nova", (req, res) => {
+
+  var erros = []
+
+  if (!req.body.titulo || typeof req.body.titulo == undefined || req.body.titulo == null) {
+    erros.push({ texto: "Titulo Invalido" });
+  }
+
+  if (!req.body.subtitulo || typeof req.body.subtitulo == undefined || req.body.subtitulo == null) {
+
+    erros.push({ texto: "Subtitulo Invalido" });
+  }
+  
+  if (!req.body.texto || typeof req.body.texto == undefined || req.body.texto == null) {
+
+    erros.push({ texto: "Texto Invalido" });
+  }
+  
+  if (req.body.titulo.length < 2) {
+    erros.push({ texto: "Titulo muito pequeno" });
+  }
+  
+  if (req.body.subtitulo.length < 2) {
+    erros.push({ texto: "Subtitulo muito pequeno" });
+  }
+  
+  if (req.body.texto.length < 2) {
+    erros.push({ texto: "Texto muito pequeno" });
+  }
+  
+
+  if (erros.length > 0) {
+    res.render("admin/addproduto", { erros: erros });
+
+  } else {
+
+    const novoProduto = {
+
+      titulo: req.body.titulo,
+      subtitulo: req.body.subtitulo,
+	  texto: req.body.texto
+
+    }
+
+    new Produto(novoProduto).save().then(() => {
+
+      req.flash("success_msg", "Produto Criado Com Sucesso");
+      res.redirect("/admin/produto");
+    }).catch((err) => {
+
+      req.flash("error_msg", "Houve um erro ao salvar o Produto, tente novamente");
+      res.redirect("/admin");
+
+    });
+
+  }
+
+});
+
+
+
+
+
+
 module.exports = rota;
 
