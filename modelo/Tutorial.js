@@ -20,7 +20,12 @@ const tutorial = new Schema({
     },
     autor: {
         type: String,
-        require:true
+        require: true
+    },
+    // -- AQUI --
+    imagem: {
+        type: String,
+        required: true
     }
 });
 

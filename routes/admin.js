@@ -648,7 +648,10 @@ rota.post("/tutoriais/nova", (req, res) => {
     titulo: req.body.titulo,
     subtitulo: req.body.subtitulo,
     texto: req.body.texto,
-    autor: req.body.autor
+    autor: req.body.autor,
+
+    // -- AQUI -- 
+    imagem: req.body.imagem
   }
   //metodo resposanvel por salvar o novo tutorial 
   new Tutorial(novaTutorial).save().then(() => {

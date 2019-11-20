@@ -186,17 +186,17 @@ app.get("/tutorial", (req, res) => {
    });
 });
 
-app.get("/pontocoletas",(req,res)=>{
+app.get("/pontocoletas", (req, res) => {
    //lista as categorias
-  PontoColeta.find().sort({ date: 'desc' }).then((pontocoleta) => {
-   res.render("pontocoleta/index", { pontocoleta: pontocoleta });
+   PontoColeta.find().sort({ date: 'desc' }).then((pontocoleta) => {
+      res.render("pontocoleta/index", { pontocoleta: pontocoleta });
 
- }).catch((err) => {
+   }).catch((err) => {
 
-   req.flash("error_msg", "Houve um erro ao listar as categorias");
-   res.redirect("/");
+      req.flash("error_msg", "Houve um erro ao listar as categorias");
+      res.redirect("/");
 
- });
+   });
 
 
 });
@@ -210,25 +210,25 @@ app.get("/404", (req, res) => {
 
 
 //Produtos
-app.get("/produtos",(req,res)=>{
+app.get("/produtos", (req, res) => {
 
-  Produto.find().sort({ date: 'desc' }).then((produto) => {
-   res.render("produto/index", { produto: produto });
+   Produto.find().sort({ date: 'desc' }).then((produto) => {
+      res.render("produto/index", { produto: produto });
 
- }).catch((err) => {
+   }).catch((err) => {
 
-   req.flash("error_msg", "Houve um erro ao listar os produtos");
-   res.redirect("/");
- });
+      req.flash("error_msg", "Houve um erro ao listar os produtos");
+      res.redirect("/");
+   });
 
 });
 
 
-app.get("/sobre",(req,res)=>{
+app.get("/sobre", (req, res) => {
 
    res.render("sobre/index");
 
- });
+});
 
 
 
@@ -242,23 +242,47 @@ app.get("/404", (req, res) => {
 
 
 
+
+
+
+
+app.get("/", (req, res) => {
+
+
+   //lista as noticias
+   Noticias.find().limit(2).sort({ date: 'asc' }).then((noticias) => {
+      res.render("index", { noticias: noticias });
+
+   }).catch((err) => {
+
+      req.flash("error_msg", "Houve");
+      res.redirect("/admin");
+
+   });
+
+
+});
+
+
+
+
 app.get("/noticias", (req, res) => {
 
 
    //lista as noticias /noticias
    Noticias.find().sort({ date: 'desc' }).then((noticias) => {
-     res.render("admin/noticias", { noticias: noticias });
- 
+      res.render("admin/noticias", { noticias: noticias });
+
    }).catch((err) => {
- 
-     req.flash("error_msg", "Houve");
-     res.redirect("/admin");
- 
+
+      req.flash("error_msg", "Houve");
+      res.redirect("/admin");
+
    });
- 
- 
- });
- 
+
+
+});
+
 
 
 
@@ -266,57 +290,96 @@ app.get("/noticias", (req, res) => {
 
 app.post('/noticias/nova', (req, res) => {
    // Pega entrada de imagem e video e audio
-   const { imagem, video, audio} = req.files;
- 
+   const { imagem, video, audio } = req.files;
+
    //  pasta raiz
    const pastaDestino = 'public/upload';
- 
+
    // Verifica erro
    let err = false;
- 
+
    // Copia a imagem
    imagem.mv(path.resolve(__dirname, `${pastaDestino}/noticias`, imagem.name), (ierror) => {
-    if(ierror) {
-      err = true;
-      return;
-    }
- 
-            // Copia o vídeo
+      if (ierror) {
+         err = true;
+         return;
+      }
+
+      // Copia o vídeo
       video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
-         if(verror) {
+         if (verror) {
             err = true;
             return;
          }
-            //copia o aduio para a pasta  
-            audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror)=> {  
-                if(auerror){
-                   err = true;
-                   return;
-                }        
-                //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
-                  Noticias.create({
-                     ...req.body,
-                     imagem: `/noticias/${imagem.name}`,
-                     video: `/video/${video.name}`,
-                     audio: `/audio/${audio.name}`
-                  }, (error, Noticias) => {
-                     err = true;
-                  });
-                  
+         //copia o aduio para a pasta  
+         audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
+            if (auerror) {
+               err = true;
+               return;
+            }
+            //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+            Noticias.create({
+               ...req.body,
+               imagem: `/noticias/${imagem.name}`,
+               video: `/video/${video.name}`,
+               audio: `/audio/${audio.name}`
+            }, (error, Noticias) => {
+               err = true;
             });
-       });
+
+         });
+      });
    });
-  
+
    // Em caso de erro, redireciona
-   if(err) {
-    res.redirect('admin/noticias');
-    return;
-   }else{
+   if (err) {
+      res.redirect('admin/noticias');
+      return;
+   } else {
       res.redirect('/noticias');
    }
- 
 
- });  
+
+});
+
+// -- AQUI --
+
+app.post('/tutoriais/nova', (req, res) => {
+   // Pega entrada de imagem e video e audio
+   const { imagem } = req.files;
+
+   //  pasta raiz
+   const pastaDestino = 'public/upload';
+
+   // Verifica erro
+   let err = false;
+
+   // Copia a imagem
+   imagem.mv(path.resolve(__dirname, `${pastaDestino}/noticias`, imagem.name), (ierror) => {
+      if (ierror) {
+         err = true;
+         return;
+      }
+      //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+      tutorial.create({
+         ...req.body,
+         imagem: `/noticias/${imagem.name}`
+      }, (error, tutorial) => {
+         err = true;
+      });
+
+   });
+
+  /* // Em caso de erro, redireciona
+   if (err) {
+      res.redirect('admin/noticias');
+      return;
+   } else {
+      res.redirect('/noticias');
+   }*/
+
+
+});
 
 
 
@@ -346,6 +409,7 @@ app.get("/homeNoticias/:slug", (req, res) => {
    });
 
 });
+
 app.use('/admin', admin);
 
 

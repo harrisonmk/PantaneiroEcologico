@@ -36,26 +36,32 @@
 
 <h2>Noticias Recentes:</h2>
 
-{{#each postagens}}
-<div class="card mt-4">
+<hr>
 
-    <div class="card-body">
-
+<h2>Noticias Recentes:</h2>
 
 
-        <h3>{{titulo}}</h3>
-        <p>{{descricao}}</p>
-        <a href="/postagem/{{slug}}"> <button class="btn btn-success">Leia Mais</button> </a>
-        <hr>
-        <small>Categoria: {{categoria.nome}}</small>
-        <small>Data de Publicação: {{data}}</small>
+<div class="card-deck"> 
 
 
 
-    </div>
-
-
+{{#each noticias}} 
+<div classs="row>">
+<div class="col-sm-12" >
+        <div class="card" >
+              <a href="/homeNoticias/{{slug}}"><img src="../upload{{imagem}}" class="card-img-top" alt="..."></a>
+            <div class="card-body">
+              <h5 class="card-title">Titulo: {{titulo}}</h5>
+              <p class="card-text">Descricao: {{descricao}}</p>
+                <a href="/HomeNoticias/{{slug}}" <button class="btn btn-success">Leia Mais</button> </a>
+      
+            </div>
+        </div>
+        
+  {{else}}
+  </div>
+  </div>
+  <center><p>Nenhuma noticia Registrada</p></center>
+  {{/each}}
 </div>
-{{else}}
-<h5>Nenhuma Noticia</h5>
-{{/each}}
+     
