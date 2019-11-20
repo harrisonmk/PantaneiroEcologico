@@ -242,6 +242,30 @@ app.get("/404", (req, res) => {
 
 
 
+
+
+
+
+app.get("/", (req, res) => {
+
+
+   //lista as noticias
+   Noticias.find().limit(2).sort({ date: 'asc' }).then((noticias) => {
+     res.render("index", { noticias: noticias });
+ 
+   }).catch((err) => {
+ 
+     req.flash("error_msg", "Houve");
+     res.redirect("/admin");
+ 
+   });
+ 
+ 
+ });
+ 
+
+
+
 app.get("/noticias", (req, res) => {
 
 
@@ -346,6 +370,7 @@ app.get("/homeNoticias/:slug", (req, res) => {
    });
 
 });
+
 app.use('/admin', admin);
 
 
