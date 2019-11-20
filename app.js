@@ -245,9 +245,9 @@ app.get("/404", (req, res) => {
 app.get("/noticias", (req, res) => {
 
 
-   //lista as noticias
+   //lista as noticias /noticias
    Noticias.find().sort({ date: 'desc' }).then((noticias) => {
-     res.render("/noticias/index", { noticias: noticias });
+     res.render("admin/noticias", { noticias: noticias });
  
    }).catch((err) => {
  
@@ -259,6 +259,8 @@ app.get("/noticias", (req, res) => {
  
  });
  
+
+
 
 
 
@@ -307,12 +309,13 @@ app.post('/noticias/nova', (req, res) => {
   
    // Em caso de erro, redireciona
    if(err) {
-    res.redirect('/noticias/nova');
+    res.redirect('admin/noticias');
     return;
+   }else{
+      res.redirect('/noticias');
    }
  
-   // fiinaliza
-   res.status(200).end();
+
  });  
 
 
@@ -343,8 +346,6 @@ app.get("/homeNoticias/:slug", (req, res) => {
    });
 
 });
-
-
 app.use('/admin', admin);
 
 
