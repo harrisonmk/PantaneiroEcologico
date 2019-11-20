@@ -1,0 +1,17 @@
+.site-footer {
+  background: linear-gradient(to bottom,#343a40,#343a40);
+  padding: 50px 0;
+  margin-right: 0;
+}
+.site-footer .copyright{
+  font-family:Arial, Helvetica !important;
+  color:white;
+}
+.imagem1{
+    max-width:20%;
+    height:auto;
+}
+.imagem2{
+    max-width:20%;
+    height:auto;
+}
