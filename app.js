@@ -224,7 +224,7 @@ app.get("/noticias", (req, res) => {
    }).catch((err) => {
       req.flash("error_msg", "Houve");
       res.redirect("/admin");
-   });s
+   });
 });
 
 
