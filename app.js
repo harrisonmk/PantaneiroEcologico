@@ -77,7 +77,7 @@ app.get("/postagem/:slug", (req, res) => {
 
    Postagem.findOne({ slug: req.params.slug }).then((postagem) => {
       if (postagem) {
-         res.render("postagem/index", { postagem: postagem })
+         res.render("postagem/index", { postagem: postagem });
 
       } else {
 
@@ -116,7 +116,7 @@ app.get("/categorias", (req, res) => {
 
 });
 
-
+/*
 app.get("/categorias/:slug", (req, res) => {
 
    Categoria.findOne({ slug: req.params.slug }).then((categoria) => {
@@ -150,7 +150,45 @@ app.get("/categorias/:slug", (req, res) => {
    });
 
 
+});*/
+
+
+// esse eh do ponto de coleta
+app.get("/categorias/:slug", (req, res) => {
+
+   Categoria.findOne({ slug: req.params.slug }).then((categoria) => {
+
+      if (categoria) {
+
+         PontoColeta.find({ categoria: categoria._id }).then((pontocoleta) => {
+
+            res.render("categorias/pontocoleta", { pontocoleta: pontocoleta, categoria: categoria });
+
+         }).catch((err) => {
+
+            req.flash("error_msg", "Houve um erro ao listar os posts");
+            res.redirect("/");
+
+         });
+
+
+      } else {
+
+         req.flash("error_msg", "Esta categoria nao existe");
+         res.redirect("/");
+
+      }
+
+   }).catch((err) => {
+
+      req.flash("error_msg", "Houve um erro interno ao carregar a pagina desta categoria");
+      res.redirect("/");
+
+   });
+
+
 });
+
 
 //Tutorial
 app.get("/tutorial", (req, res) => {
