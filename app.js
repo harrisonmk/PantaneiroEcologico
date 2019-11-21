@@ -168,15 +168,10 @@ app.get("/pontocoletas", (req, res) => {
    //lista as categorias
    PontoColeta.find().sort({ date: 'desc' }).then((pontocoleta) => {
       res.render("pontocoleta/index", { pontocoleta: pontocoleta });
-
    }).catch((err) => {
-
       req.flash("error_msg", "Houve um erro ao listar as categorias");
       res.redirect("/");
-
    });
-
-
 });
 
 
@@ -248,7 +243,7 @@ app.post('/noticias/nova', (req, res) => {
    let err = false;
 
    // Copia a imagem
-   imagem.mv(path.resolve(__dirname, `${pastaDestino}/noticias`, imagem.name), (ierror) => {
+   imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
       if (ierror) {
          err = true;
          return;
@@ -269,7 +264,7 @@ app.post('/noticias/nova', (req, res) => {
             //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
             Noticias.create({
                ...req.body,
-               imagem: `/noticias/${imagem.name}`,
+               imagem: `/imagens/${imagem.name}`,
                video: `/video/${video.name}`,
                audio: `/audio/${audio.name}`
             }, (error, Noticias) => {
