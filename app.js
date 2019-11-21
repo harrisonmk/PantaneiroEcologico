@@ -58,13 +58,9 @@ app.set('view engine', 'handlebars');
 //"mongodb://localhost/pantaneiroecologico"
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/pantaneiroecologico', { useNewUrlParser: true }).then(() => {
-
    console.log("conectado ao mongo");
-
 }).catch((err) => {
-
    console.log("erro ao se conectar" + err);
-
 });
 
 
@@ -227,28 +223,19 @@ app.get("/noticias", (req, res) => {
    });
 });
 
-
-
-
-
-
 app.post('/noticias/nova', (req, res) => {
    // Pega entrada de imagem e video e audio
    const { imagem, video, audio } = req.files;
-
    //  pasta raiz
    const pastaDestino = 'public/upload';
-
    // Verifica erro
    let err = false;
-
    // Copia a imagem
    imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
       if (ierror) {
          err = true;
          return;
       }
-
       // Copia o vídeo
       video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
          if (verror) {
@@ -313,16 +300,6 @@ app.post('/tutoriais/nova', (req, res) => {
       });
 
    });
-
-  /* // Em caso de erro, redireciona
-   if (err) {
-      res.redirect('admin/noticias');
-      return;
-   } else {
-      res.redirect('/noticias');
-   }*/
-
-
 });
 
 
