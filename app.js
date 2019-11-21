@@ -74,23 +74,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(__dirname + '/public'));
 
 
-//rotas
-app.get('/', (req, res) => {
-
-   Postagem.find().populate("categoria").sort({ data: "desc" }).then((postagens) => {
-
-
-      res.render("index", { postagens: postagens });
-   }).catch((err) => {
-
-      req.flash("error_msg", "Houve um erro interno");
-      res.redirect("/404");
-
-   });
-
-
-});
-
 app.get("/postagem/:slug", (req, res) => {
 
    Postagem.findOne({ slug: req.params.slug }).then((postagem) => {
@@ -203,7 +186,6 @@ app.get("/404", (req, res) => {
 
 });
 
-
 //Produtos
 app.get("/produtos", (req, res) => {
 
@@ -218,15 +200,11 @@ app.get("/produtos", (req, res) => {
 
 });
 
-
 app.get("/sobre", (req, res) => {
 
    res.render("sobre/index");
 
 });
-
-
-
 
 app.get("/404", (req, res) => {
 
@@ -234,48 +212,24 @@ app.get("/404", (req, res) => {
 
 });
 
-
-
-
-
-
-
-
 app.get("/", (req, res) => {
-
-
    //lista as noticias
-   Noticias.find().limit(2).sort({ date: 'asc' }).then((noticias) => {
+   Noticias.find().sort({ date: 'asc' }).then((noticias) => {
       res.render("index", { noticias: noticias });
-
    }).catch((err) => {
-
       req.flash("error_msg", "Houve");
       res.redirect("/admin");
-
    });
-
-
 });
 
-
-
-
 app.get("/noticias", (req, res) => {
-
-
    //lista as noticias /noticias
    Noticias.find().sort({ date: 'desc' }).then((noticias) => {
       res.render("admin/noticias", { noticias: noticias });
-
    }).catch((err) => {
-
       req.flash("error_msg", "Houve");
       res.redirect("/admin");
-
-   });
-
-
+   });s
 });
 
 
