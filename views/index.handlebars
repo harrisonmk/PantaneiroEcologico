@@ -1,47 +1,121 @@
 <head>
     <link rel="stylesheet" href="../css/estilo.css">
 </head>
-
+<style>
+    .doze{
+        max-width: 100%;
+        width: 395px;
+        height: 395px;
+        object-fit: cover;
+    }
+    .um{
+        max-width: 100%;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
+</style>
 <header>
     <img class="displayed " src="../imagens/logo.jpeg" alt="telaprincipal">
-
-
     <ul class="nav margem">
-
-
-
-       
         <li><a href="/">Inicio</a></li>
         <li><a href="/noticias"> Noticias</a></li>
         <li><a href="/tutorial">Tutoriais</a></li>
         <li><a href="/pontocoletas">Pontos de coleta</a></li>
         <li><a href="/produtos">Produtos</a></li>
         <li><a href="/sobre"> Sobre</a></li>
-
-
     </ul>
 </header>
+
 <hr>
 
 <h2>Noticias Recentes:</h2>
-
-
-<div classs="row>">
-    <div class="car-groud">
-    {{#each noticias}}
-        <div class="card" >
-              <a href="/homeNoticias/{{slug}}"><img src="../upload{{imagem}}" class="card-img-top" alt="..."></a>
-            <div class="card-body">
-              <h5 class="card-title">Titulo: {{titulo}}</h5>
-              <p class="card-text">Descricao: {{descricao}}</p>
-                <a href="/HomeNoticias/{{slug}}" <button class="btn btn-success">Leia Mais</button> </a>
-      
-            </div>
+<div classs="row">
+    <div class="card-group">
+        <div class="col-xl-7">
+            {{#each noticias}}
+                <div class="card mb-2"  style="max-width: 40rem;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="/homeNoticias/{{slug}}"><img class="doze" style="max-width: 250px; max-height:250px"
+                                        src="../upload{{imagem}}"></a>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <h5 class="card-title"><b>Titulo: {{titulo}}</b></h5>
+                                    <p class="card-text">Descricao: {{descricao}}</p>
+                                    <a href="/HomeNoticias/{{slug}}" <button class="btn btn-success">Leia Mais</button> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{else}}
+            <center>
+                <p>Nenhuma noticia Registrada</p>
+            </center>
+            {{/each}}
         </div>
-  
+        <div class="col-xl-5 d-flex justify-content-end">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-group">
+                        <div class="card w-100 h-50 mb-3">
+                            <div class="card-header">
+                                <h5 class="text-center"><b>Atenção no Lixeiro</b></h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <p class="text-left"> Hojes é dia de lixeiro nos bairros:</p>
+                                <p class="text-left">Unersitário, Maria Leite, Popular Velha e Centro</p>
+                                <p class="text-left">Não esqueçam de colocar o lixo no local correto.</p>
+                        
+                            </div>
+                            <div class=" card-footer">
+                            </div>
+                        </div>
+                    
+                        <div class="col-12"></div>
+                        <div class="card w-100 h-50 mb-3">
+                            <div class="card-header">
+                                <h5 class="text-center"><b>Obra de Arte</b></h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <img src="imagens/arte.jpg" class="um">
+                                    </div>
+                                    <div class="col-8">
+                                        <p class="text-left"> Artista de Ládario</p>
+                                        <p class="text-left">Monta um robô com o uso de sucata</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" card-footer">
+                            </div>
+                        </div>
+                        <div class="col-12"></div>
+                        <div class="card w-100 h-50">
+                            <div class="card-header">
+                                <h5 class="text-center"><b>Novo Tutorial</b></h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-4">
+                                        {{!-- <img src="imagens/arte.jpg" class="um"> --}}
+                                    </div>
+                                    <div class="col-8">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" card-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
-{{else}}
-<center><p>Nenhuma noticia Registrada</p></center>
-{{/each}}
-     
