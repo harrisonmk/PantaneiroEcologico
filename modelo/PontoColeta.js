@@ -29,6 +29,14 @@ const PontoColeta = new Schema({
         
     },
     itens: [String],
+    
+    categoria: {
+
+        type: Schema.Types.ObjectId,
+        ref: "categorias",
+        required:true
+
+    },
 
     data: {
 

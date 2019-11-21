@@ -32,6 +32,16 @@
 <label for="itens">Materiais: </label>
 <input type="text" name="itens" placeholder="materiais separados por virgula" class="form-control" > 
 
+<label for="categoria">Categoria: </label>
+            <select name="categoria" class="custom-select">
+                {{#each categorias}}
+                <option value="{{_id}}">{{nome}}</option>
+
+                {{else}}
+                <option value="0">Nenhuma Categoria Registrada</option>
+                {{/each}}
+
+            </select>
 
 
 <button type="submit" class="btn btn-success mt-4">Criar Ponto de coleta</button>

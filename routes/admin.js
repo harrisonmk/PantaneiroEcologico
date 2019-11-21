@@ -350,10 +350,17 @@ rota.get("/postagens/deletar/:id", (req, res) => {
 
 rota.get('/pontocoleta/add', (req, res) => {
 
+Categoria.find().then((categorias) => {
 
-  res.render("admin/addpontocoleta");
 
+  res.render("admin/addpontocoleta",{categorias: categorias});
 
+}).catch((err) => {
+
+    req.flash("error_msg", "Houve um erro ao listar os pontos de coleta");
+    res.redirect("/admin");
+
+  });
 
 });
 
@@ -363,6 +370,12 @@ rota.post("/pontocoleta/nova", (req, res) => {
   var erros = [];
   var resultado;
   var itens;
+  
+  if (req.body.categoria == "0") {
+
+    erros.push({ texto: "categoria invalida, registre uma categoria" });
+
+  }
 
   if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
     erros.push({ texto: "Nome Invalido" });
@@ -401,6 +414,8 @@ rota.post("/pontocoleta/nova", (req, res) => {
       rua: req.body.rua,
       numero: req.body.numero,
       horarioAtendimento : req.body.horarioAtendimento,
+      categoria: req.body.categoria,
+      
       itens: req.body.itens.split(",")
       
       
@@ -430,7 +445,7 @@ rota.get("/pontocoleta", (req, res) => {
 
 
   //lista os pontos de coleta
-  PontoColeta.find().sort({ date: 'desc' }).then((pontocoleta) => {
+  PontoColeta.find().populate("categoria").sort({ data: "desc" }).then((pontocoleta) => {
     res.render("admin/pontocoleta", { pontocoleta: pontocoleta });
 
   }).catch((err) => {
@@ -448,13 +463,29 @@ rota.get("/pontocoleta", (req, res) => {
 rota.get("/ponto-coleta/edit/:id", (req, res) => {
 
   PontoColeta.findOne({ _id: req.params.id }).then((pontocoleta) => {
+      
+      
+      Categoria.find().then((categorias) => { 
+      
     //categoria eh um objeto que pode ser usado na view
-    res.render("admin/editpontocoleta", { pontocoleta: pontocoleta });
+    res.render("admin/editpontocoleta", {categorias: categorias, pontocoleta: pontocoleta });
 
   }).catch((err) => {
-    req.flash("error_msg", "Esta Categoria Nao Existe");
+
+      req.flash("error_msg", "Houve um erro ao listar as categorias");
+      res.redirect("/admin/pontocoleta");
+    });
+          
+     }).catch((err) => {
+
+    req.flash("error_msg", "Houve um erro ao carregar um formulario de edicao");
     res.redirect("/admin/pontocoleta");
+
   });
+  
+  
+   
+  
 
 });
 
@@ -496,6 +527,7 @@ rota.post("/ponto-coleta/edit", (req, res) => {
       pontocoleta.rua= req.body.rua;
       pontocoleta.numero= req.body.numero;
       pontocoleta.horarioAtendimento = req.body.horarioAtendimento;
+      pontocoleta.categoria = req.body.categoria;
       pontocoleta.itens = req.body.itens.split(",");
        
 
@@ -583,7 +615,7 @@ rota.post("/noticias/nova", (req, res) => {
       "data": req.body.data
       
 
-    }
+    };
     new Noticias(novaNoticia).save().then(() => {
       req.flash("success_msg", "noticia adicionada com sucesso!");
       res.redirect("/admin/noticias");

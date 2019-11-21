@@ -36,6 +36,17 @@
 <input type="text" name="itens" placeholder="materiais separado por virgula" class="form-control" value="{{pontocoleta.itens}}" required>
 
 
+ <label for="categoria">Categoria: </label>
+            <select name="categoria" class="custom-select">
+                {{#each categorias}}
+                <option value="{{_id}}">{{nome}}</option>
+
+                {{else}}
+                <option value="0">Nenhuma Categoria Registrada</option>
+                {{/each}}
+
+            </select>
+
 <button type="submit" class="btn btn-success mt-4">Editar Ponto de coleta</button>
 
 </form>
