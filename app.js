@@ -9,14 +9,17 @@ const path = require("path");
 const mongoose = require('mongoose');
 const session = require("express-session");
 const flash = require("connect-flash");
+const fileUpload = require("express-fileupload");
+
 require("./modelo/Postagem");
 const Postagem = mongoose.model("postagens");
+
 require("./modelo/Categoria");
 const Categoria = mongoose.model("categorias");
+
 require("./modelo/PontoColeta");
 const PontoColeta = mongoose.model("pontocoleta");
 
-const fileUpload = require("express-fileupload");
 require("./modelo/Noticias");
 const Noticias = mongoose.model("noticias");
 
@@ -273,33 +276,51 @@ app.post('/noticias/nova', (req, res) => {
 
 });
 
-// -- AQUI --
-
 app.post('/tutoriais/nova', (req, res) => {
    // Pega entrada de imagem e video e audio
-   const { imagem } = req.files;
-
+   const { imagem, video, audio } = req.files;
    //  pasta raiz
-   const pastaDestino = 'public/upload';
-
+   const pastaDestino = 'public/uploadTutorial';
    // Verifica erro
    let err = false;
-
    // Copia a imagem
-   imagem.mv(path.resolve(__dirname, `${pastaDestino}/noticias`, imagem.name), (ierror) => {
+   imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
       if (ierror) {
          err = true;
          return;
       }
-      //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
-      tutorial.create({
-         ...req.body,
-         imagem: `/noticias/${imagem.name}`
-      }, (error, tutorial) => {
-         err = true;
-      });
+      // Copia o vídeo
+      video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
+         if (verror) {
+            err = true;
+            return;
+         }
+         //copia o aduio para a pasta  
+         audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
+            if (auerror) {
+               err = true;
+               return;
+            }
+            //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+            Tutorial.create({
+               ...req.body,
+               imagem: `/imagens/${imagem.name}`,
+               video: `/video/${video.name}`,
+               audio: `/audio/${audio.name}`
+            }, (error, Noticias) => {
+               err = true;
+            });
 
+         });
+      });
    });
+   // Em caso de erro, redireciona
+   if (err) {
+      res.redirect('/admin/tutoriais');
+      return;
+   } else {
+      res.redirect('/admin/tutoriais');
+   }
 });
 
 

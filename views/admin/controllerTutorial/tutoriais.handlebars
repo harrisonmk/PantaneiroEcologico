@@ -1,7 +1,21 @@
 <head>
     <link rel="stylesheet" href="../css/tutoriais.css">
 </head>
+<style>
+    .doze {
+        max-width: 100%;
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+    }
 
+    .um {
+        max-width: 100%;
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+    }
+</style>
 <div class="container-fluid">
     <h2>Lista dos Tutoriais:</h2>
     <hr>
@@ -18,12 +32,33 @@
                         <button type="submit" class="btn btn-lg btn-danger mt-2">Deletar</button>
                     </form>
                 </div>
-                <h4>Título: {{titulo}}</h4>
+                <b><h4 class="text-center">Título: {{titulo}}</h4></b>
                 <div class="subtitulo">Subtítulo: {{subtitulo}}</div>
             </div>
             <div class="card-body">
-                <img src="../upload/tutoriais{{imagem.imagem}}" widt h="400" height="400" />
-                <p class="texto-tutorial" class="ponto-coleta-texto">{{texto}}<small>
+                <div class="row mb-4">
+                    <div class="col-5">
+                        <img class="doze" src="../uploadTutorial{{imagem}}">
+                    </div>
+                    <div class="col-7 ">
+                        <p class="texto-tutorial">{{texto}}</p>
+                    </div>
+                </div>
+                <div class="text-break"></div>
+                <div class="row ">
+                    <div class="col-6">
+                        <video width="320" height="200" controls class="um">
+                            <source src="../uploadTutorial{{video}}" type="video/MP4">
+                        </video>
+                    </div>
+                    <div class="col-6 justify-content-center">
+                        <audio controls>
+                            <source src="../uploadTutorial{{audio}}" type="audio/mpeg">
+                        </audio>
+                    </div>
+                </div>
+                
+                
             </div>
             <div class="card-footer text-muted">
                 <blockquote class="blockquote mb-0">

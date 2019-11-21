@@ -604,7 +604,6 @@ rota.post("/noticias/nova", (req, res) => {
   } else {
 
     const novaNoticia = {
-
       "titulo": req.body.titulo,
       "descricao": req.body.descricao,
       "conteudo": req.body.conteudo,
@@ -613,8 +612,6 @@ rota.post("/noticias/nova", (req, res) => {
       "video": req.body.video,
       "audio": req.body.audio,
       "data": req.body.data
-      
-
     };
     new Noticias(novaNoticia).save().then(() => {
       req.flash("success_msg", "noticia adicionada com sucesso!");
@@ -681,9 +678,9 @@ rota.post("/tutoriais/nova", (req, res) => {
     subtitulo: req.body.subtitulo,
     texto: req.body.texto,
     autor: req.body.autor,
-
-    // -- AQUI -- 
-    imagem: req.body.imagem
+    imagem: req.body.imagem,
+    video: req.body.video,
+    audio:req.body.audio
   }
   //metodo resposanvel por salvar o novo tutorial 
   new Tutorial(novaTutorial).save().then(() => {
@@ -726,6 +723,9 @@ rota.post("/tutoriais/edit", (req, res) => {
     tutorial.subtitulo = req.body.subtitulo;
     tutorial.texto = req.body.texto;
     tutorial.autor = req.body.autor;
+    tutorial.audio = req.body.audio;
+    tutorial.video = req.body.video;
+    tutorial.imagem = req.body.imagem;
     //metodo que salva as modificacoes dentro do banco subescrevendo
     tutorial.save().then(() => {
       //mensagem de sucesso

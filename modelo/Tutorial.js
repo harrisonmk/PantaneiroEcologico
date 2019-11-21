@@ -22,11 +22,18 @@ const tutorial = new Schema({
         type: String,
         require: true
     },
-    // -- AQUI --
     imagem: {
         type: String,
         required: true
-    }
+    },
+    video: {
+        type: String,
+        required: true
+    },
+    audio: {
+        type: String,
+        required: true
+    }        
 });
 
 mongoose.model("Tutorial", tutorial);
