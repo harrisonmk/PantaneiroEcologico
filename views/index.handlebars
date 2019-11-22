@@ -14,6 +14,20 @@
         height: 150px;
         object-fit: cover;
     }
+    .tabela1{
+        max-width:400px;
+        max-height:300px;
+        width: auto;
+        height: auto;
+        object-fit: cover;
+    }
+    .tabela2{
+        max-width:350px;
+        max-height:200px;
+        width: auto;
+        height: auto;
+        object-fit: cover;
+    }
 </style>
 <header>
     <img class="displayed " src="../imagens/logo.jpeg" alt="telaprincipal">
@@ -61,20 +75,28 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-group">
-                        <div class="card w-100 h-50 mb-3 text-white bg-success">
+                        <div class="card w-100 h-25 mb-3 text-white bg-success">
                             <div class="card-header">
-                                <h5 class="text-center"><b>Atenção no Lixeiro</b></h5>
+                                <h5 class="text-center"><b>Coleta Domiciliar</b></h5>
                             </div>
-                            <div class="card-body text-center">
-                                <p class="text-left"> Hojes é dia de lixeiro nos bairros:</p>
-                                <p class="text-left">Universitário, Maria Leite, Popular Velha e Centro</p>
-                                <p class="text-left">Não esqueçam de colocar o lixo no local correto.</p>
-                        
+                            <div class="card-body">
+                                <center><img src="imagens/Folha12.jpg" class="tabela2"></center>
                             </div>
                             <div class=" card-footer">
                             </div>
                         </div>
-                    
+                        <div class="col-12"></div>
+                        <div class="card w-100 h-25 mb-3 text-white bg-success">
+                            <div class="card-header">
+                                <h5 class="text-center"><b>Coleta Seletiva</b></h5>
+                            </div>
+                            <div class="card-body">
+                                <img src="imagens/Folha2.jpg" class="tabela1" data-lightbox="roadtrip" >
+                            </div>
+                            <div class=" card-footer">
+                            </div>
+                        </div>
+                    {{!-- style="background: #FAAC58;" --}}
                         <div class="col-12"></div>
                         <div class="card w-100 h-50 mb-3 text-white bg-success">
                             <div class="card-header">
@@ -83,7 +105,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-4">
-                                        <img src="imagens/arte.jpg" class="um">
+                                        <img src="imagens/arte.jpg" class="um" data-lightbox="arte" >
                                     </div>
                                     <div class="col-8">
                                         <p class="text-left"> Artista de Ládario</p>
@@ -101,3 +123,9 @@
         </div>
     </div>
 </div>
+<script>
+    lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true
+    });
+</script>
