@@ -19,6 +19,13 @@ const Produto = new Schema({
 
     },
 
+    autor: {
+
+        type: String,
+        required: true
+
+    },
+
     data: {
 
         type: Date,
@@ -33,9 +40,11 @@ const Produto = new Schema({
 
     },
 
-    slug: {
+    textocom: {
+
         type: String,
         required: true
+
     },
 
     imagem:  {
