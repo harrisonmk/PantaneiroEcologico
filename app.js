@@ -359,8 +359,8 @@ app.post('/tutoriais/nova', (req, res) => {
 
 /* slug noticias */
 
-app.get("/homeNoticias/:slug", (req, res) => {
-   Noticias.findOne({ slug: req.params.slug }).then((noticias) => {
+app.get("/homeNoticias/:id", (req, res) => {
+   Noticias.findOne({ _id: req.params.id }).then((noticias) => {
       if (noticias) {
          res.render("noticias/homeNoticias", { noticias: noticias })
       } else {
