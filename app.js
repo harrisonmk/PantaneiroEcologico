@@ -464,20 +464,29 @@ app.get("/homeTutorial/:id", (req, res) => {
 
 // *********************** Slug Produtos ********************************//
 
-app.get("/homeProduto/:slug", (req, res) => {
-
-   Produto.findOne({ slug: req.params.slug }).then((produto) => {
+app.get("/homeProduto/:id", (req, res) => {
+   Produto.findOne({ _id: req.params.id }).then((produto) => {
       if (produto) {
-         res.render("produto/homeProduto", { produto : produto })
+         res.render("produto/homeProduto", { produto: produto })
       } else {
-
-         req.flash("error_msg", "Não existe!");
+         req.flash("error_msg", "Não existe");
          res.redirect("/");
       }
-
    }).catch((err) => {
-
       req.flash("error_msg", "Houve um erro interno");
+      res.redirect("/");
+   });
+});
+app.get("/homeProduto/:id", (req, res) => {
+   //metodo responsavel por buscar o id na collection e extrair os dados e renderizar no momento de editar
+   Produto.findOne({ _id: req.params.id }).then((produto) => {
+      //renderiza os dados na página de edicao
+      res.render("produto/homeProduto", { produto: produto });
+      //caso der merda
+   }).catch((err) => {
+      //mesangem de erro caso der ruim
+      req.flash("error_msg", "O Produto Não Existe");
+      //redirecionamento para area de gerenciamento
       res.redirect("/");
    });
 });
