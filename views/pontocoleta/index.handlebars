@@ -4,9 +4,7 @@
  </head>
 
 
-<div class="tudo">
-
-<div class="menu">
+<div class="divlateral">
 
 <h2>Pontos de Coleta:</h2>
 <hr>
@@ -43,11 +41,13 @@
 
  </div>
 
+ <div class="diva">
+
    <div class="conteudo">
 
               <h4>Categorias: </h4>
 
-              <select  class="custom-select">
+              <select  class="custom-select" style="width: 25rem;">
                 {{#each categorias}}
                <option onclick="location.href='/categorias/{{slug}}'"> <h5>{{nome}}</h5> </option> 
 
@@ -56,7 +56,5 @@
                 {{/each}}
 
             </select>
-  <div>
+  </div>
 
-
- </div>
