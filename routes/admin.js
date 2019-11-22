@@ -608,7 +608,6 @@ rota.post("/noticias/nova", (req, res) => {
       "autor": req.body.autor,
       "descricao": req.body.descricao,
       "conteudo": req.body.conteudo,
-      "slug": req.body.slug,
       "imagem": req.body.imagem,
       "video": req.body.video,
       "audio": req.body.audio,
