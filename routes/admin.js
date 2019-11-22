@@ -763,7 +763,6 @@ rota.post("/tutoriais/deletar", (req, res) => {
 });
 
 
-
 // ***********************  Produtos ********************************//
 
 rota.get("/produto/add", (req, res) => {
@@ -799,8 +798,9 @@ rota.post("/produto/nova", (req, res) => {
       "titulo": req.body.titulo,
       "subtitulo": req.body.subtitulo,
       "data": req.body.data,
+      "autor": req.body.autor,
       "texto": req.body.texto,
-      "slug": req.body.slug,
+      "textocom": req.body.textocom,
       "imagem": req.body.imagem,
       "video": req.body.video,
       "audio": req.body.audio      
@@ -819,7 +819,6 @@ rota.post("/produto/nova", (req, res) => {
   }
 
 });
-
 
 
 rota.get("/produto", (req, res) => {
