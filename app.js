@@ -226,19 +226,81 @@ app.get("/404", (req, res) => {
 
 });
 
-//Produtos
-app.get("/produtos", (req, res) => {
 
+// ***********************  Produtos ********************************//
+
+app.get("/produto", (req, res) => {
+   //lista dos produto
    Produto.find().sort({ date: 'desc' }).then((produto) => {
-      res.render("produto/index", { produto: produto });
-
+      res.render("admin/produto", { produto : produto });
    }).catch((err) => {
+      req.flash("error_msg", "Houve Erro");
+      res.redirect("/admin");
+   });
+});
 
-      req.flash("error_msg", "Houve um erro ao listar os produtos");
-      res.redirect("/");
+app.get("/produtos", (req, res) => {
+   //lista dos produto /produto
+   Produto.find().sort({ date: 'desc' }).then((produto) => {
+      res.render("admin/produto", { produto : produto });
+   }).catch((err) => {
+      req.flash("error_msg", "Houve Erro");
+      res.redirect("/admin");
+   });
+});
+
+app.post('/produto/nova', (req, res) => {
+   // Pega entrada de imagem e video e audio
+   const { imagem, video, audio } = req.files;
+   //  pasta raiz
+   const pastaDestino = 'public/uploadproduto';
+   // Verifica erro
+   let err = false;
+   // Copia a imagem
+   imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
+      if (ierror) {
+         err = true;
+         return;
+      }
+      // Copia o vídeo
+      video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
+         if (verror) {
+            err = true;
+            return;
+         }
+         //copia o audio para a pasta  
+         audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
+            if (auerror) {
+               err = true;
+               return;
+            }
+            //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+            Produto.create({
+               ...req.body,
+               imagem: `/imagens/${imagem.name}`,
+               video: `/video/${video.name}`,
+               audio: `/audio/${audio.name}`
+            }, (error, Produto) => {
+               err = true;
+            });
+
+         });
+      });
    });
 
+   // Em caso de erro, redireciona
+   if (err) {
+      res.redirect('admin/produto');
+      return;
+   } else {
+      res.redirect('/produto');
+   }
+
 });
+
+
+// *******************************************************//
+
 
 app.get("/sobre", (req, res) => {
 
@@ -386,6 +448,28 @@ app.get("/homeTutorial/:id", (req, res) => {
    });
 });
 
+
+// *********************** Slug Produtos ********************************//
+
+app.get("/homeProduto/:slug", (req, res) => {
+
+   Produto.findOne({ slug: req.params.slug }).then((produto) => {
+      if (produto) {
+         res.render("produto/homeProduto", { produto : produto })
+      } else {
+
+         req.flash("error_msg", "Não existe!");
+         res.redirect("/");
+      }
+
+   }).catch((err) => {
+
+      req.flash("error_msg", "Houve um erro interno");
+      res.redirect("/");
+   });
+});
+
+// ******************************************************//
 
 app.use('/admin', admin);
 
