@@ -1,0 +1,47 @@
+<style>
+   .doze {
+      max-width: 100%;
+      width: 395px;
+      height: 395px;
+      object-fit: cover;
+   }
+
+   .um {
+      max-width: 100%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+   }
+</style>
+<h3>PRODUTO</h3>
+<hr>
+<div class="card mt-4">
+   <div class="card-header text-center">
+      <b><h4>{{produto.titulo}}</h4></b>
+      <small>{{produto.subtitulo}}</small><br>
+   </div>
+   <div class="card-body">
+      <div class="row">
+         <div class="col-12 text-center">
+            <img src="../uploadproduto{{produto.imagem}}" class="doze" />
+         </div>
+         <br>
+         <div class="col-12">
+            <div class="container">
+               <h6 class="text-center">{{produto.texto}}</h6>
+            </div>
+         </div>
+         <div class="col-12 text-center">
+            <video width="320" height="240" controls>
+               <source src="../uploadproduto{{produto.video}}" type="video/mp4">
+            </video>
+         </div>
+         <div class="col-12 text-center">
+            <audio controls>
+               <source src="../uploadproduto{{produto.audio}}" type="audio/mpeg">
+            </audio>
+         </div>
+      </div>
+    </div>
+</div>
+
