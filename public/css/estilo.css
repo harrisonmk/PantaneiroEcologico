@@ -43,6 +43,28 @@ a{
 
 }
 
+.divlateral {
+  
+position: relative;
+float:left;
+border-width: 2px;
+width: 300px;
+height: 700px;
+
+    
+}
+
+.diva {
+    
+   position: relative;
+   float:left; 
+    border-width: 2px;
+    width: auto;
+    height: auto;
+    left: 400px;
+    
+}
+
 .ponto-coleta-titulo{
 
   font-size: 26px;
