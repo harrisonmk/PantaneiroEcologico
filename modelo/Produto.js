@@ -10,13 +10,14 @@ const Produto = new Schema({
 
     },
 
+
     subtitulo: {
+
         type: String,
         required: true
 
 
     },
-
 
     data: {
 
@@ -24,12 +25,34 @@ const Produto = new Schema({
         default: Date.now()
 
     },
-	
-	texto: {
+
+    texto: {
+
         type: String,
         required: true
 
+    },
 
+    slug: {
+        type: String,
+        required: true
+    },
+
+    imagem:  {
+      type: String,
+      required: true
+
+
+    },
+
+    video: {
+        type: String,
+        required: true
+    },
+
+    audio: {
+        type: String,
+        required: true
     }
 
 });
