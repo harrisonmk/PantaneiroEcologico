@@ -605,6 +605,7 @@ rota.post("/noticias/nova", (req, res) => {
 
     const novaNoticia = {
       "titulo": req.body.titulo,
+      "autor": req.body.autor,
       "descricao": req.body.descricao,
       "conteudo": req.body.conteudo,
       "slug": req.body.slug,

@@ -11,7 +11,10 @@ const Noticias = new Schema({
 
 
     },
-
+    autor: {
+        type: String,
+        required: true
+    },
   
 
     descricao: {
@@ -28,6 +31,8 @@ const Noticias = new Schema({
         required: true
 
     },
+
+ 
 
     slug: {
         type: String,
