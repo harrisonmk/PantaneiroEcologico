@@ -1,18 +1,57 @@
-<h2>PRODUTOS:</h2>
-<hr>
+<head>
+    <link rel="stylesheet" href="../css/estilo.css">
+</head>
+<style>
+    .doze {
+        max-width: 100%;
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+    }
 
+    .um {
+        max-width: 100%;
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+    }
+</style>
+<h2>Produtos:</h2>
+<br>
 {{#each produto}}
 
-<div class="card">
-
+<div class="card mb-2"  style="max-width: 80rem;">
+    <div class="card-header">
+        <h4 class="text-center">{{titulo}}</h4>
+        <div class="subtitulo">{{subtitulo}}</div>
+    </div>
     <div class="card-body">
-        <h4>{{titulo}}</h4>
-        <small>{{subtitulo}}</small><br>
-        <small> <h1></h1> {{texto}}</small><br>
-         <img src="{{imagem}}"  width="250" height="150" /> >
-        <small> Data:{{data}}</small>
+        <div class="row">
+            <div class="col-6">
+                <a href="/homeProduto/{{_id}}">
+                <img class="doze " src="../uploadproduto{{imagem}}"></a>
+            </div>
+            <div class="col-6">
+                <p class="texto-tutorial" class="ponto-coleta-texto">{{texto}}<small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6"></div>
+            <div class="col-6 text-center">
+                <a href="/homeProduto/{{_id}}"><button class="btn btn-lg btn-success justify-content-xl-end">
+                    Ver mais
+                </button></a>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        <blockquote class="blockquote mb-0">
+            <footer class="autor" class="blockquote-footer">Escrito por: {{autor}}</footer>
+        </blockquote>
+        <div class="data" class="d-flex justify-content-end">Data de Publicação: {{data}}</div>
     </div>
 </div>
+
 {{else}}
- <h4 class="mt-3"> Nehum Produto Registrado </h4>>
+<h4 class="mt-3"> Nenhum Produto Registrado </h4>
 {{/each}}
