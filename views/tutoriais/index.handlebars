@@ -1,17 +1,47 @@
 <head>
     <link rel="stylesheet" href="../css/tutoriais.css">
 </head>
+<style>
+    .doze {
+        max-width: 100%;
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    .um {
+        max-width: 100%;
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+    }
+</style>
 <h2>Tutoriais</h2>
 <br>
 {{#each tutorial}}
 
-<div class="card mb-2"  style="max-width: 40rem;">
+<div class="card mb-2"  style="max-width: 80rem;">
     <div class="card-header">
-        <h4>Título: {{titulo}}</h4>
-        <div class="subtitulo">Subtítulo: {{subtitulo}}</div>
+        <h4 class="text-center">{{titulo}}</h4>
+        <div class="subtitulo">{{subtitulo}}</div>
     </div>
     <div class="card-body">
-        <p  class="texto-tutorial" class="ponto-coleta-texto">{{texto}}<small>       
+        <div class="row">
+            <div class="col-6">
+                <img class="doze " src="../uploadTutorial{{imagem}}">
+            </div>
+            <div class="col-6">
+                <p class="texto-tutorial" class="ponto-coleta-texto">{{texto}}<small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6"></div>
+            <div class="col-6 text-center">
+                <button class="btn btn-lg btn-success justify-content-xl-end">
+                    Ver mais
+                </button>
+            </div>
+        </div>
     </div>
     <div class="card-footer text-muted">
         <blockquote class="blockquote mb-0">

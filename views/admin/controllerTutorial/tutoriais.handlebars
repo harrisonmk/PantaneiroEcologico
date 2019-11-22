@@ -24,7 +24,7 @@
     </div>
     <br>
     {{#each tutorial}}
-        <div class="card w-75">
+        <div class="card" style="width: 400;">
             <div class="card-header">
                 <div  class="d-flex justify-content-end">
                     <form action="tutoriais/deletar" method="POST">
@@ -37,16 +37,15 @@
             </div>
             <div class="card-body">
                 <div class="row mb-4">
-                    <div class="col-5">
-                        <img class="doze" src="../uploadTutorial{{imagem}}">
+                    <div class="col-5 text-center">
+                        <img class="doze " src="../uploadTutorial{{imagem}}">
                     </div>
                     <div class="col-7 ">
                         <p class="texto-tutorial">{{texto}}</p>
                     </div>
                 </div>
-                <div class="text-break"></div>
                 <div class="row ">
-                    <div class="col-6">
+                    <div class="col-6 text-center">
                         <video width="320" height="200" controls class="um">
                             <source src="../uploadTutorial{{video}}" type="video/MP4">
                         </video>

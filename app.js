@@ -190,17 +190,50 @@ app.get("/categorias/:slug", (req, res) => {
 });
 
 
-//Tutorial
+// app.get("/", (req, res) => {
+//    const Noticias = mongoose.model('Noticias', Noticias, 'noticias');
+//    const Tutorial = mongoose.model('Tutorial', Tutorial, 'tutorial');
+
+//    Noticias.find().populate("tutorial").sort({ data: "asc" }).then((noticias) => {
+//       res.render("index", { noticias:noticias });
+//    }).catch((err) => {
+//       req.flash("error_msg", "Houve um erro grotesco");
+//       res.redirect("/");
+//    });
+// });
+
+// app.get("/", (req, res) => {
+//    console.log("aqui não entra")
+//    //lista as categorias
+//    Tutorial.find().sort({ date: 'desc' }).then((tutorial) => {
+//       res.render("index", { tutorial: tutorial });
+//    }).catch((err) => {
+//       req.flash("error_msg", "Houve um erro ao listar as categorias");
+//       res.redirect("/");
+//    });
+// });
+
+// app.get("/", (req, res) => {
+//    //lista as categorias
+//    Noticias.find().sort({ date: 'desc' }).then((noticias) => {
+//       res.render("index", { noticias: noticias });
+//    }).catch((err) => {
+//       req.flash("error_msg", "Houve um erro ao listar as categorias");
+//       res.redirect("/");
+//    });
+// });
+
+
+
 app.get("/tutorial", (req, res) => {
    //lista as categorias
    Tutorial.find().sort({ date: 'desc' }).then((tutorial) => {
       res.render("tutoriais/index", { tutorial: tutorial });
    }).catch((err) => {
-      req.flash("error_msg", "Houve um erro ao listar os tutoriais");
+      req.flash("error_msg", "Houve um erro ao listar as categorias");
       res.redirect("/");
    });
 });
-
 app.get("/pontocoletas", (req, res) => {
    //lista as categorias
    PontoColeta.find().sort({ date: 'desc' }).then((pontocoleta) => {
@@ -210,7 +243,6 @@ app.get("/pontocoletas", (req, res) => {
       res.redirect("/");
    });
 });
-
 
 app.get("/404", (req, res) => {
 
@@ -242,16 +274,6 @@ app.get("/404", (req, res) => {
 
    res.send("erro 404!");
 
-});
-
-app.get("/", (req, res) => {
-   //lista as noticias
-   Noticias.find().sort({ date: 'asc' }).then((noticias) => {
-      res.render("index", { noticias: noticias });
-   }).catch((err) => {
-      req.flash("error_msg", "Houve");
-      res.redirect("/admin");
-   });
 });
 
 app.get("/noticias", (req, res) => {
@@ -310,8 +332,6 @@ app.post('/noticias/nova', (req, res) => {
    } else {
       res.redirect('/noticias');
    }
-
-
 });
 
 app.post('/tutoriais/nova', (req, res) => {
@@ -361,37 +381,23 @@ app.post('/tutoriais/nova', (req, res) => {
    }
 });
 
-
-
 /* slug noticias */
 
-
-
 app.get("/homeNoticias/:slug", (req, res) => {
-
    Noticias.findOne({ slug: req.params.slug }).then((noticias) => {
       if (noticias) {
          res.render("noticias/homeNoticias", { noticias: noticias })
-
       } else {
-
          req.flash("error_msg", "N existe");
          res.redirect("/");
-
       }
-
-
    }).catch((err) => {
-
       req.flash("error_msg", "Houve um erro interno");
       res.redirect("/");
-
    });
-
 });
 
 app.use('/admin', admin);
-
 
 //outros
 const porta = 8089;
@@ -399,6 +405,6 @@ const porta = 8089;
 //em formato de arrow function
 app.listen(porta, () => {
 
-   console.log("servidor rodando!");
+ console.log("servidor rodando!");
 
 });
