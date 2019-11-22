@@ -189,39 +189,15 @@ app.get("/categorias/:slug", (req, res) => {
 
 });
 
-
-// app.get("/", (req, res) => {
-//    const Noticias = mongoose.model('Noticias', Noticias, 'noticias');
-//    const Tutorial = mongoose.model('Tutorial', Tutorial, 'tutorial');
-
-//    Noticias.find().populate("tutorial").sort({ data: "asc" }).then((noticias) => {
-//       res.render("index", { noticias:noticias });
-//    }).catch((err) => {
-//       req.flash("error_msg", "Houve um erro grotesco");
-//       res.redirect("/");
-//    });
-// });
-
-// app.get("/", (req, res) => {
-//    console.log("aqui não entra")
-//    //lista as categorias
-//    Tutorial.find().sort({ date: 'desc' }).then((tutorial) => {
-//       res.render("index", { tutorial: tutorial });
-//    }).catch((err) => {
-//       req.flash("error_msg", "Houve um erro ao listar as categorias");
-//       res.redirect("/");
-//    });
-// });
-
-// app.get("/", (req, res) => {
-//    //lista as categorias
-//    Noticias.find().sort({ date: 'desc' }).then((noticias) => {
-//       res.render("index", { noticias: noticias });
-//    }).catch((err) => {
-//       req.flash("error_msg", "Houve um erro ao listar as categorias");
-//       res.redirect("/");
-//    });
-// });
+app.get("/", (req, res) => {
+   //lista as categorias
+   Noticias.find().sort({ date: 'desc' }).then((noticias) => {
+      res.render("index", { noticias: noticias });
+   }).catch((err) => {
+      req.flash("error_msg", "Houve um erro ao listar as categorias");
+      res.redirect("/");
+   });
+});
 
 
 
@@ -396,6 +372,20 @@ app.get("/homeNoticias/:slug", (req, res) => {
       res.redirect("/");
    });
 });
+app.get("/homeTutorial/:id", (req, res) => {
+   //metodo responsavel por buscar o id na collection e extrair os dados e rendenerizar no moemnto de editar
+   Tutorial.findOne({ _id: req.params.id }).then((tutorial) => {
+      //rendeneriza os dados na página de edicao
+      res.render("tutoriais/homeTutorial", { tutorial: tutorial });
+      //caso der merda
+   }).catch((err) => {
+      //mesangem de erro caso der ruim
+      req.flash("error_msg", "O tutorial Nao Existe");
+      //redirecionamento para area de gerenciamento
+      res.redirect("/");
+   });
+});
+
 
 app.use('/admin', admin);
 
