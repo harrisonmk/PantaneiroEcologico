@@ -38,7 +38,9 @@
             <div class="card-body">
                 <div class="row mb-4">
                     <div class="col-5 text-center">
+                        {{#if imagem}}
                         <img class="doze " src="../uploadTutorial{{imagem}}">
+                        {{/if}}
                     </div>
                     <div class="col-7 ">
                         <p class="texto-tutorial">{{texto}}</p>
@@ -46,9 +48,11 @@
                 </div>
                 <div class="row ">
                     <div class="col-6 text-center">
+                        {{#if video}}
                         <video width="320" height="200" controls class="um">
                             <source src="../uploadTutorial{{video}}" type="video/MP4">
                         </video>
+                        {{/if}}
                     </div>
                     <div class="col-6 justify-content-center">
                         <audio controls>

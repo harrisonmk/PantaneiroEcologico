@@ -32,7 +32,9 @@
     <div class="card-body">
         <div class="row">
             <div class="col-12 text-center">
+                {{#if produto.imagem}}
                 <img src="../uploadProduto{{produto.imagem}}" class="doze" />
+                {{/if}}
             </div>
             <br>
             <div class="col-12">
@@ -46,14 +48,18 @@
                 </div>
             </div>
             <div class="col-12 text-center">
+                {{#if produto.video}}
                 <video width="320" height="240" controls>
                     <source src="../uploadProduto{{produto.video}}" type="video/mp4">
                 </video>
+                {{/if}}
             </div>
             <div class="col-12 text-center">
+                {{#if produto.audio}}
                 <audio controls>
                     <source src="../uploadProduto{{produto.audio}}" type="audio/mpeg">
                 </audio>
+                {{/if}}
             </div>
         </div>
     </div>

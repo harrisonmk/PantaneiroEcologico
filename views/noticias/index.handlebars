@@ -25,7 +25,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
-                        <center><img src="{{imagem}}" class="doze" /> </center>
+                       {{#if imagem}} <center><img src="{{imagem}}" class="doze" /> </center>{{/if}}
                     </div>
                     <div class="col-6">
                         <h6 align="justify">Conteúdo:</h6> {{conteudo}}
