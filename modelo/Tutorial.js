@@ -4,9 +4,11 @@ const Schema = mongoose.Schema;
 const tutorial = new Schema({
     titulo: {
         type: String,
+        required: true
     },
     subtitulo: {
         type: String,
+        required: true
     },
     data: {
         type: Date,
@@ -14,9 +16,11 @@ const tutorial = new Schema({
     },
     texto: {
         type: String,
+        required: true
     },
     autor: {
         type: String,
+        required: true
     },
     imagem: {
         type: String,

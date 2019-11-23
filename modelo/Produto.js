@@ -5,20 +5,23 @@ const Produto = new Schema({
 
     titulo: {
         type: String,
+        required: true
     },
     subtitulo: {
         type: String,
+        required: true
     },
     autor: {
-
         type: String,
+        required: true
     },
     texto: {
         type: String,
+        required: true
     },
     data: {
-    type: Date,
-    default: Date.now()
+        type: Date,
+        default: Date.now()
     },
     textocom: {
         type: String,
