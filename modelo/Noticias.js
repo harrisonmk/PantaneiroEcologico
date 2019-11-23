@@ -37,19 +37,19 @@ const Noticias = new Schema({
    
     imagem:  {
       type: String,
-      required: true
+ 
 
 
     },
 
     video: {
         type: String,
-        required: true
+        
     },
 
     audio: {
         type: String,
-        required: true
+        
     },
    
    
