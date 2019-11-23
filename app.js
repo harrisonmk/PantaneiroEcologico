@@ -268,7 +268,7 @@ app.post('/produto/nova', (req, res) => {
    // Pega entrada de imagem e video e audio
    const { imagem, video, audio } = req.files;
    //  pasta raiz
-   const pastaDestino = 'public/uploadproduto';
+   const pastaDestino = 'public/uploadProduto';
    // Verifica erro
    let err = false;
    // Copia a imagem
