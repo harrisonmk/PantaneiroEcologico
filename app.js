@@ -345,17 +345,145 @@ app.post('/noticias/nova', (req, res) => {
    // Verifica erro
    let err = false;
    // Copia a imagem
+   
+   if(!imagem){
+      console.log('recebeu nada');
+      
+      
+            video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
+               if (verror) {
+                  err = true;
+                  return;
+               }
+               //copia o aduio para a pasta  
+               audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
+                  if (auerror) {
+                     err = true;
+                     return;
+                  }
+                  //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+                  Noticias.create({
+                     ...req.body,
+                    imagem:`/imagem/${''}`,
+                     video: `/video/${video.name}`,
+                     audio: `/audio/${audio.name}`
+                  }, (error, Noticias) => {
+                     err = true;
+                  });
+               })
+            }); 
+      
+   }else if(!video){
+
+
+                         imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
+                           if (ierror) {
+                              err = true;
+                              return;
+                           }
+                           
+                           // Copia o vídeo
+                        
+                              //copia o aduio para a pasta  
+                               audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
+                                 if (auerror) {
+                                       err = true;
+                                       return;
+                                 }
+                                    //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
+                                    Noticias.create({
+                                       ...req.body,
+                                       imagem: `/imagens/${imagem.name}`,
+                                       video: `/video/${''}`,
+                                       audio: `/audio/${audio.name}`
+                                    }, (error, Noticias) => {
+                                       err = true;
+                                       
+                                    
+                                    });
+
+                              });
+                        });
+
+   }else if(!audio){
+
+                        imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
+                           if (ierror) {
+                              err = true;
+                              return;
+                           }
+
+                              video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
+                                 if (verror) {
+                                    err = true;
+                                    return;
+                                 }   
+                                    Noticias.create({
+                                       ...req.body,
+                                       imagem: `/imagens/${imagem.name}`,
+                                       video: `/video/${video.name}`,
+                                       audio: `/audio/${''}`
+                                    }, (error, Noticias) => {
+                                       err = true;
+                                       
+                                    
+                                 });
+
+                              });
+                        });
+
+
+
+   }else if(!imagem && !video && !audio){
+
+
+                                          Noticias.create({
+                                                ...req.body,
+                                                imagem: `/imagens/${''}`,
+                                                video: `/video/${''}`,
+                                                audio: `/audio/${''}`
+                                                }, (error, Noticias) => {
+                                                   err = true;
+                                 
+                              
+                         
+                                           });
+
+                                        }  
+     if (err) {
+     res.redirect('admin/noticias');
+      return;
+   } else {
+      res.redirect('/noticias');
+   }
+});
+
+app.post('/tutoriais/nova', (req, res) => {
+   // Pega entrada de imagem e video e audio
+   const { imagem, video, audio } = req.files;
+   //  pasta raiz
+   const pastaDestino = 'public/uploadTutorial';
+   // Verifica erro
+   let err = false;
+   // Copia a imagem
+   let vazio = null;
+
    imagem.mv(path.resolve(__dirname, `${pastaDestino}/imagens`, imagem.name), (ierror) => {
       if (ierror) {
          err = true;
          return;
       }
+
+ 
       // Copia o vídeo
       video.mv(path.resolve(__dirname, `${pastaDestino}/video`, video.name), (verror) => {
          if (verror) {
             err = true;
             return;
+
+
          }
+
          //copia o aduio para a pasta  
          audio.mv(path.resolve(__dirname, `${pastaDestino}/audio`, audio.name), (auerror) => {
             if (auerror) {
@@ -363,7 +491,7 @@ app.post('/noticias/nova', (req, res) => {
                return;
             }
             //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
-            Noticias.create({
+            Tutorial.create({
                ...req.body,
                imagem: `/imagens/${imagem.name}`,
                video: `/video/${video.name}`,
@@ -375,16 +503,14 @@ app.post('/noticias/nova', (req, res) => {
          });
       });
    });
-
    // Em caso de erro, redireciona
    if (err) {
-      res.redirect('admin/noticias');
+      res.redirect('/admin/tutoriais');
       return;
    } else {
-      res.redirect('/noticias');
+      res.redirect('/admin/tutoriais');
    }
 });
-
 app.post('/tutoriais/nova', (req, res) => {
    // Pega entrada de imagem e video e audio
    const { imagem, video, audio } = req.files;
