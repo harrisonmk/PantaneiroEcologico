@@ -337,6 +337,17 @@ app.get("/noticias", (req, res) => {
    });
 });
 
+app.get("/noticias", (req, res) => {
+   //lista as noticias /noticias
+   Noticias.find().sort({ date: 'asc' }).then((noticias) => {
+      res.render("admin/noticias", { noticias: noticias });
+   }).catch((err) => {
+      req.flash("error_msg", "Houve");
+      res.redirect("/admin");
+   });
+});
+
+
 app.post('/noticias/nova', (req, res) => {
    // Pega entrada de imagem e video e audio
    const { imagem, video, audio } = req.files;
@@ -364,7 +375,7 @@ app.post('/noticias/nova', (req, res) => {
                   //cria a collections com os novos dados, e adiciona no campo de acordo com o tipo
                   Noticias.create({
                      ...req.body,
-                    imagem:`/imagem/${''}`,
+                    imagem: null,
                      video: `/video/${video.name}`,
                      audio: `/audio/${audio.name}`
                   }, (error, Noticias) => {
@@ -394,7 +405,7 @@ app.post('/noticias/nova', (req, res) => {
                                     Noticias.create({
                                        ...req.body,
                                        imagem: `/imagens/${imagem.name}`,
-                                       video: `/video/${''}`,
+                                       video: null,
                                        audio: `/audio/${audio.name}`
                                     }, (error, Noticias) => {
                                        err = true;
@@ -422,7 +433,7 @@ app.post('/noticias/nova', (req, res) => {
                                        ...req.body,
                                        imagem: `/imagens/${imagem.name}`,
                                        video: `/video/${video.name}`,
-                                       audio: `/audio/${''}`
+                                       audio: null
                                     }, (error, Noticias) => {
                                        err = true;
                                        
@@ -439,9 +450,9 @@ app.post('/noticias/nova', (req, res) => {
 
                                           Noticias.create({
                                                 ...req.body,
-                                                imagem: `/imagens/${''}`,
-                                                video: `/video/${''}`,
-                                                audio: `/audio/${''}`
+                                                imagem: null,
+                                                video: null,
+                                                audio: null
                                                 }, (error, Noticias) => {
                                                    err = true;
                                  
@@ -457,6 +468,7 @@ app.post('/noticias/nova', (req, res) => {
       res.redirect('/noticias');
    }
 });
+
 
 app.post('/tutoriais/nova', (req, res) => {
    // Pega entrada de imagem e video e audio
